@@ -2,6 +2,7 @@
 # Brute force: 0.617322538
 # Sliding window: 0.162572
 # Sliding window2: 0.12389086299999999
+# Sliding window3: 0.153267076
 
 from __future__ import annotations
 
@@ -9,17 +10,14 @@ from __future__ import annotations
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         n = len(s)
-        unique_list = []
+        dictionary = {}
         max_, i, j = 0, 0, 0
-        while (i < n and j < n):
-            if s[j] not in unique_list:
-                unique_list.append(s[j])
-                max_ = max(max_, j-i+1)
-                j += 1
-            else:
-                unique_list = [s[j]]
-                i = j
-                j = i+1
+        while i < n and j < n:
+            if s[j] in dictionary.keys():
+                i = max(i, dictionary[s[j]]+1)
+            max_ = max(max_, j-i+1)
+            dictionary[s[j]] = j
+            j += 1
 
         return max_
 
@@ -39,17 +37,14 @@ test.lengthOfLongestSubstring("au") # 2
 # class Solution:
 #     def lengthOfLongestSubstring(self, s: str) -> int:
 #         n = len(s)
-#         unique_list = []
+#         dictionary = {}
 #         max_, i, j = 0, 0, 0
-#         while (i < n and j < n):
-#             if s[j] not in unique_list:
-#                 unique_list.append(s[j])
-#                 max_ = max(max_, j-i+1)
-#                 j += 1
-#             else:
-#                 unique_list = [s[j]]
-#                 i = j
-#                 j = i+1
+#         while i < n and j < n:
+#             if s[j] in dictionary.keys():
+#                 i = max(i, dictionary[s[j]]+1)
+#             max_ = max(max_, j-i+1)
+#             dictionary[s[j]] = j
+#             j += 1
 
 #         return max_
 
@@ -59,7 +54,6 @@ test.lengthOfLongestSubstring("au") # 2
 # test.lengthOfLongestSubstring("pwwkew") # 3
 # test.lengthOfLongestSubstring(" ") # 1
 # test.lengthOfLongestSubstring("") # 0
-# test.lengthOfLongestSubstring("au") # 2
 # """
 
 # print(timeit.timeit(code, number=10000))
