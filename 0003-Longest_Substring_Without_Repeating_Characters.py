@@ -1,7 +1,7 @@
 # original: 0.118911507
 # Brute force: 0.617322538
 # Sliding window: 0.162572
-# Sliding window2: 0.12156498600000001
+# Sliding window2: 0.12389086299999999
 
 from __future__ import annotations
 
@@ -17,12 +17,11 @@ class Solution:
                 max_ = max(max_, j-i+1)
                 j += 1
             else:
-                unique_list = []
-                i = j+1
+                unique_list = [s[j]]
+                i = j
                 j = i+1
 
         return max_
-        # print(max_)
 
 
 test = Solution()
@@ -48,8 +47,8 @@ test.lengthOfLongestSubstring("au") # 2
 #                 max_ = max(max_, j-i+1)
 #                 j += 1
 #             else:
-#                 unique_list = []
-#                 i = j+1
+#                 unique_list = [s[j]]
+#                 i = j
 #                 j = i+1
 
 #         return max_
