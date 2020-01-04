@@ -7,13 +7,10 @@ class Solution:
         max_, i, j = "", 0, 0
 
         for i in range(n):
-            while i < n and j < n:
+            for j in range(n):
                 word = s[i:j+1]
                 if word == word[::-1] and len(word) > len(max_):
                     max_ = word
-                    i = j+1
-                    j = i
-                j += 1
 
         # return max_
         print(max_)
@@ -27,6 +24,9 @@ test.longestPalindrome(" ") # ""
 
 test = Solution()
 test.longestPalindrome("a") # "a"
+
+test = Solution()
+test.longestPalindrome("bb") # "bb"
 
 test = Solution()
 test.longestPalindrome("babad") # "bab" or "aba"
