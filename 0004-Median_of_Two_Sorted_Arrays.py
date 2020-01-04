@@ -4,9 +4,8 @@ from __future__ import annotations
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         L = sorted(nums1+nums2)
-        odd, mid = len(L)%2, len(L)//2
+        mid, odd = len(L)//2, len(L)%2
         return float(L[mid]) if odd else (L[mid-1]+L[mid])/2
-        # print(float(L[mid])) if odd else print((L[mid-1]+L[mid])/2)
 
 
 test = Solution()
