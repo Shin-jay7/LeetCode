@@ -1,11 +1,9 @@
 from __future__ import annotations
-
+import statistics
 
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        L = sorted(nums1+nums2)
-        mid, odd = len(L)//2, len(L)%2
-        return float(L[mid]) if odd else (L[mid-1]+L[mid])/2
+        return statistics.median(sorted(nums1+nums2))
 
 
 test = Solution()
