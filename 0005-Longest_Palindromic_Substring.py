@@ -1,35 +1,29 @@
 from __future__ import annotations
+# import timeit
 
 
+# code = """
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        if s == "" or s == " ":
-            return ""
-
         n = len(s)
-
-        L = [[[0, ""] for x in range(n)] for x in range(n)]
+        dp = [[False] * n for _ in range(n)]
+        ans = ""
 
         for i in range(n):
-            L[i][i][0] = 1
-            L[i][i][1] = s[i]
+            dp[i][i] = True
+            ans = s[i]
 
-        for cl in range(2, n+1):
-            for i in range(n-cl+1):
-                j = i+cl-1
-                if s[i] == s[j] and cl == 2:
-                    L[i][j][0] = 2
-                    L[i][j][1] = s[i:j+1]
-                elif s[i] == s[j] and L[i+1][j-1][0] == cl-2:
-                    L[i][j][0] = cl
-                    L[i][j][1] = s[i:j+1]
-                else:
-                    if L[i][j-1][0] > L[i+1][j][0]:
-                        L[i][j] = L[i][j-1]
-                    else:
-                        L[i][j] = L[i+1][j]
+        max_ = 1
+        for i in range(n-1, -1, -1):
+            for j in range(i+1, n):
+                if s[i] == s[j]:
+                    if j-i == 1 or dp[i+1][j-1]:
+                        dp[i][j] = True
+                        if max_ < j-i+1:
+                            max_ = j-i+1
+                            ans = s[i:j+1]
 
-        return L[0][n-1][1]
+        return ans
 
 
 test = Solution()
@@ -53,3 +47,8 @@ test.longestPalindrome("cbbd") # "bb"
 test = Solution()
 test.longestPalindrome("abcda") # "a"
 
+test = Solution()
+test.longestPalindrome("aaaa") # "aaaa"
+# """
+
+# print(timeit.timeit(code, number=10000))
