@@ -1,29 +1,27 @@
 from __future__ import annotations
-import re
 
 
 class Solution:
     def romanToInt(self, s: str) -> int:
         ans = 0
         intDict = {
-            "M": 1000,
-            "CM": 900,
-            "D": 500,
-            "CD": 400,
-            "C": 100,
-            "XC": 90,
-            "L": 50,
-            "XL": 40,
-            "X": 10,
-            "IX": 9,
+            "I": 1,
             "V": 5,
-            "IV": 4,
-            "I": 1
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
         }
-        for key in intDict.keys():
-            while re.match(key, s):
-                ans += intDict[key]
-                s = s[len(key):]
+        result, ans = [], 0
+        for letter in s:
+            result.append(intDict[letter])
+        for i in range(len(result)-1):
+            if result[i+1] > result[i]:
+                ans -= result[i]
+            else:
+                ans += result[i]
+        ans += result[-1]
 
         return ans
 
