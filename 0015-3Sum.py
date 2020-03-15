@@ -1,4 +1,5 @@
 from __future__ import annotations
+import bisect
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
@@ -12,17 +13,19 @@ class Solution:
 
             l = i+1
             r = length-1
+            diff = 0 - nums[i]
 
             while l < r:
-                total = nums[i] + nums[l] + nums[r]
-                if total == 0:
-                    ans.add((nums[i], nums[l], nums[r]))
+                target = diff - nums[l]
+                candidate = bisect.bisect_left(nums, target, l+1, r)
+
+                if nums[candidate] == target:
+                    ans.add((nums[i], nums[l], nums[candidate]))
                     l += 1
-                    r -= 1
-                elif total < 0:
-                    l += 1
+
+                    r = candidate - 1
                 else:
-                    r -= 1
+                    l += 1
 
         return list(ans)
 
