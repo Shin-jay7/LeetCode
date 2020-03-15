@@ -12,6 +12,12 @@ class Solution:
                 if letter != str[idx]:
                     return prefix
             prefix += letter
+        # for i in range(len(min(strs, key=len))):
+        #     letter = strs[0][i]
+        #     if all(word[i] == letter for word in strs):
+        #         prefix += letter
+        #     else:
+        #         break
 
         return prefix
 
