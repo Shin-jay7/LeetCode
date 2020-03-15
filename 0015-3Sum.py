@@ -7,15 +7,19 @@ class Solution:
         ans = set()
 
         for i in range(length-2):
+            if nums[i] > 0:
+                break
+
             l = i+1
             r = length-1
 
             while l < r:
-                if nums[i] + nums[l] + nums[r] == 0:
+                total = nums[i] + nums[l] + nums[r]
+                if total == 0:
                     ans.add((nums[i], nums[l], nums[r]))
                     l += 1
                     r -= 1
-                elif nums[i] + nums[l] + nums[r] < 0:
+                elif total < 0:
                     l += 1
                 else:
                     r -= 1
@@ -27,3 +31,7 @@ class Solution:
 
 test = Solution()
 test.threeSum([-1, 0, 1, 2, -1, -4]) # [[-1, 0, 1], [-1, -1, 2]]
+
+test = Solution()
+test.threeSum([-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0])
+# [[-5,1,4],[-4,0,4],[-4,1,3],[-2,-2,4],[-2,1,1],[0,0,0]]
