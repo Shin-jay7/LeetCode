@@ -16,13 +16,13 @@ class Solution:
             diff = 0 - nums[i]
 
             while l < r:
+                # Set bisect search insertion point as target
                 target = diff - nums[l]
                 candidate = bisect.bisect_left(nums, target, l+1, r)
 
                 if nums[candidate] == target:
                     ans.add((nums[i], nums[l], nums[candidate]))
                     l += 1
-
                     r = candidate - 1
                 else:
                     l += 1
