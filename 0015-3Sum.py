@@ -16,7 +16,7 @@ class Solution:
             diff = 0 - nums[i]
 
             while l < r:
-                # Set bisect search insertion point as target
+                # Set value at insertion point as target
                 target = diff - nums[l]
                 candidate = bisect.bisect_left(nums, target, l+1, r)
 
