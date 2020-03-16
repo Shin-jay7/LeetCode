@@ -1,11 +1,12 @@
 from __future__ import annotations
+import sys
 
 
 class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
         length = len(nums)
         nums.sort()
-        min_, total, ans = 999999999999, 0, 0
+        min_, total, ans = sys.maxsize, 0, 0
 
         for i in range(length-2):
             l = i+1
