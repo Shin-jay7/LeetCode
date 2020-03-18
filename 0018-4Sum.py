@@ -9,7 +9,19 @@ class Solution:
         i, j = 0, 1
 
         for i in range(length-3):
+            ### Speed up
+            if nums[i] + nums[length-3] + nums[length-2] + nums[length-1] < target:
+                continue
+            if nums[i] + nums[i+1] + nums[i+2] + nums[i+3] > target:
+                continue
+            ###
             for j in range(i+1,length-2):
+                ### Speed up
+                if nums[i] + nums[j] + nums[length-2] + nums[length-1] < target:
+                    continue
+                if nums[i] + nums[j] + nums[j+1] + nums[j+2] > target:
+                    continue
+                ###
                 l = j+1
                 r = length-1
 
