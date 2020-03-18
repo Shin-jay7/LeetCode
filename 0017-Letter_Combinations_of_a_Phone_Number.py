@@ -15,17 +15,16 @@ class Solution:
         }
         ans = []
 
-        def backtrack(combination, remaining_digits):
+        def combineHelper(combination, remaining_digits):
             if len(remaining_digits) == 0:
                 ans.append(combination)
             else:
                 for letter in letterList[remaining_digits[0]]:
-                    backtrack(combination+letter, remaining_digits[1:])
+                    combineHelper(combination+letter, remaining_digits[1:])
 
         if digits:
-            backtrack("", digits)
+            combineHelper("", digits)
 
-        # print(ans)
         return ans
 
 
