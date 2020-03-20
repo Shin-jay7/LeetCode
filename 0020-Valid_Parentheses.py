@@ -11,7 +11,7 @@ class Solution:
         }
 
         for s in strings:
-            if s == ")" or s == "]" or s == "}":
+            if s in bracket_pairs.keys():
                 if remaining_brackets != "" and\
                    remaining_brackets[-1] == bracket_pairs[s]:
                     remaining_brackets = remaining_brackets[:-1]
