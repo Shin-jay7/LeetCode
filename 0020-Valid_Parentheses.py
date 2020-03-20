@@ -3,36 +3,23 @@ from __future__ import annotations
 
 class Solution:
     def isValid(self, strings: str) -> bool:
-        round_brackets, square_brackets, curly_brackets = 0, 0, 0
-
         remaining_brackets = ""
+        bracket_pairs = {
+            ")": "(",
+            "]": "[",
+            "}": "{"
+        }
 
-        for idx,s in enumerate(strings):
-            if s == ")" and remaining_brackets != "":
-                if remaining_brackets[-1] == "(":
+        for s in strings:
+            if s == ")" or s == "]" or s == "}":
+                if remaining_brackets != "" and\
+                   remaining_brackets[-1] == bracket_pairs[s]:
                     remaining_brackets = remaining_brackets[:-1]
                 else:
-                    # print(False)
-                    # return
-                    return False
-            elif s == "]" and remaining_brackets != "":
-                if remaining_brackets[-1] == "[":
-                    remaining_brackets = remaining_brackets[:-1]
-                else:
-                    # print(False)
-                    # return
-                    return False
-            elif s == "}" and remaining_brackets != "":
-                if remaining_brackets[-1] == "{":
-                    remaining_brackets = remaining_brackets[:-1]
-                else:
-                    # print(False)
-                    # return
                     return False
             else:
                 remaining_brackets += s
 
-        # print(remaining_brackets == "")
         return remaining_brackets == ""
 
 
