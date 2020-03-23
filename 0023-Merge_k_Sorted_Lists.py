@@ -1,5 +1,4 @@
 from __future__ import annotations
-from queue import PriorityQueue
 
 
 class ListNode:
@@ -9,24 +8,20 @@ class ListNode:
 
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        class Wrapper():
-            def __init__(self, node):
-                self.node = node
-            def __lt__(self, other):
-                return self.node.val < other.node.val
-
-        q = PriorityQueue()
+        min_heap = []
         head = pointer = ListNode(0)
 
         for l in lists:
             if l:
-                q.put(Wrapper(l))
-        while not q.empty():
-            node = q.get().node
+                heapq.heappush(min_heap, (l.val, id(l), l))
+
+        while min_heap:
+            val, node_id, node, = heapq.heappop(min_heap)
             pointer.next = node
             pointer = pointer.next
             node = node.next
+
             if node:
-                q.put(Wrapper(node))
+                heapq.heappush(min_heap, (node.val, id(node), node))
 
         return head.next
