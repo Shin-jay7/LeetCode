@@ -8,14 +8,14 @@ class ListNode:
 
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        self.nodes = []
+        nodes = []
         head = pointer = ListNode(0)
 
         for l in lists:
             while l:
-                self.nodes.append(l.val)
+                nodes.append(l.val)
                 l = l.next
-        for i in sorted(self.nodes):
+        for i in sorted(nodes):
             pointer.next = ListNode(i)
             pointer = pointer.next
 
