@@ -6,8 +6,11 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        if not lists: return
+
         amount = len(lists)
         interval = 1
 
@@ -16,7 +19,7 @@ class Solution:
                 lists[i] = self.merge2Lists(lists[i], lists[i+interval])
             interval *= 2
 
-        return lists[0] if amount > 0 else lists
+        return lists[0]
 
     def merge2Lists(self, l1, l2):
         head = pointer = ListNode(0)
@@ -27,13 +30,9 @@ class Solution:
                 l1 = l1.next
             else:
                 pointer.next = l2
-                l2 = l1
-                l1 = pointer.next.next
+                l2 = l2.next
             pointer = pointer.next
 
-        if not l1:
-            pointer.next = l2
-        else:
-            pointer.next = l1
+        pointer.next = l1 if l1 else l2
 
         return head.next
