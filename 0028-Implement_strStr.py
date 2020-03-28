@@ -18,25 +18,21 @@ class Solution:
         h, n, start_idx, checking = 0, 0, 0, 0
 
         while h < h_length:
-            if haystack[h] == needle[n] and n == n_length-1:
-                # print(start_idx)
-                # return
-                return start_idx
-            elif haystack[h] == needle[n] and checking == 0:
-                start_idx = h
-                checking = 1
-                h += 1
-                n += 1
-            elif haystack[h] == needle[n]:
-                h += 1
+            if haystack[h] == needle[n]:
+                if n == n_length-1:
+                    # print(start_idx)
+                    # return
+                    return start_idx
+                elif checking == 0:
+                    start_idx = h
+                    checking = 1
                 n += 1
             elif checking == 1:
-                h = start_idx+1
+                h = start_idx
                 n = 0
                 checking = 0
                 start_idx = -1
-            else:
-                h += 1
+            h += 1
 
         return -1
         # print(-1)
