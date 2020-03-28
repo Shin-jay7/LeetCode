@@ -15,7 +15,7 @@ class Solution:
             # return
             return -1
 
-        h, n, start_idx, checking = 0, 0, 0, 0
+        h, n, start_idx = 0, 0, 0
 
         while h < h_length:
             if haystack[h] == needle[n]:
@@ -23,20 +23,24 @@ class Solution:
                     # print(start_idx)
                     # return
                     return start_idx
-                elif checking == 0:
+                elif n == 0:
                     start_idx = h
-                    checking = 1
                 n += 1
-            elif checking == 1:
+            elif n > 0:
                 h = start_idx
                 n = 0
-                checking = 0
-                start_idx = -1
+                start_idx = 0
             h += 1
 
         return -1
         # print(-1)
 
+
+test = Solution()
+test.strStr("babba", "bbb") # -1
+
+test = Solution()
+test.strStr("aaa", "aaa") # 0
 
 test = Solution()
 test.strStr("aaa", "a") # 0
