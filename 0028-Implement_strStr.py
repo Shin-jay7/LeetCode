@@ -3,37 +3,11 @@ from __future__ import annotations
 
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        h_length = len(haystack)
-        n_length = len(needle)
-
-        if needle == "":
-            # print(0)
-            # return
-            return 0
-        elif haystack == "" or h_length < n_length:
-            # print(-1)
-            # return
-            return -1
-
-        h, n, start_idx = 0, 0, 0
-
-        while h < h_length:
-            if haystack[h] == needle[n]:
-                if n == n_length-1:
-                    # print(start_idx)
-                    # return
-                    return start_idx
-                elif n == 0:
-                    start_idx = h
-                n += 1
-            elif n > 0:
-                h = start_idx
-                n = 0
-                start_idx = 0
-            h += 1
+        for i in range(len(haystack)-len(needle)+1):
+            if haystack[i:i+len(needle)] == needle:
+                return i
 
         return -1
-        # print(-1)
 
 
 test = Solution()
