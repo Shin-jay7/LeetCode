@@ -3,18 +3,20 @@ from __future__ import annotations
 
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
-        length = len(nums)
-        for i in range(length-1, 0, -1):
-            if nums[i] > nums[i-1]:
-                j = i
-                while j < length and nums[j] > nums[i-1]:
-                    idx = j
-                    j += 1
-                nums[idx], nums[i-1] = nums[i-1], nums[idx]
-                nums[i:] = sorted(nums[i:])
-                return
+        i = j = len(nums)-1
+        while i > 0 and nums[i-1] >= nums[i]:
+            i -= 1
 
-        nums.reverse()
+        if i == 0:
+            nums.reverse()
+            return
+
+        k = i-1
+        while nums[j] <= nums[k]:
+            j -= 1
+        nums[k], nums[j] = nums[j], nums[k]
+
+        nums[i:] = sorted(nums[i:])
 
 
 test = Solution()
