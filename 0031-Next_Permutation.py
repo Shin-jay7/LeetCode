@@ -27,6 +27,9 @@ class Solution:
 
 
 test = Solution()
+test.nextPermutation([1,3,2]) # [2,1,3]
+
+test = Solution()
 test.nextPermutation([1,2,3]) # [1,3,2]
 
 test = Solution()
@@ -34,3 +37,6 @@ test.nextPermutation([3,2,1]) # [1,2,3]
 
 test = Solution()
 test.nextPermutation([1,1,5]) # [1,5,1]
+
+test = Solution()
+test.nextPermutation([1,5,1]) # [5,1,1]
