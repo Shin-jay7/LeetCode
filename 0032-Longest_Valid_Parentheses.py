@@ -4,20 +4,32 @@ from __future__ import annotations
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
         max_ = 0
-        stack = [-1]
+        l, r = 0, 0
 
         for i in range(len(s)):
             if s[i] == "(":
-                stack.append(i)
+                l += 1
             else:
-                stack.pop()
-                if stack == []:
-                    stack.append(i)
-                else:
-                    max_ = max(max_, i-stack[-1])
+                r += 1
+            if l == r:
+                max_ = max(max_, l+r)
+            elif r >= l:
+                l, r = 0, 0
+
+        l, r = 0, 0
+
+        for j in range(len(s)-1,-1,-1):
+            if s[j] == "(":
+                l += 1
+            else:
+                r += 1
+            if l == r:
+                max_ = max(max_, l+r)
+            elif l >= r:
+                l, r = 0, 0
 
         return max_
-        # print(max_)
+        print(max_)
 
 
 test = Solution()
