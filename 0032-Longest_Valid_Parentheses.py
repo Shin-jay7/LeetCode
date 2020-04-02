@@ -13,7 +13,7 @@ class Solution:
                 r += 1
             if l == r:
                 max_ = max(max_, l+r)
-            elif r >= l:
+            elif r > l:
                 l, r = 0, 0
 
         l, r = 0, 0
@@ -25,11 +25,11 @@ class Solution:
                 r += 1
             if l == r:
                 max_ = max(max_, l+r)
-            elif l >= r:
+            elif l > r:
                 l, r = 0, 0
 
         return max_
-        print(max_)
+        # print(max_)
 
 
 test = Solution()
