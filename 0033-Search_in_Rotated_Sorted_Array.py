@@ -6,19 +6,18 @@ class Solution:
         lo, hi = 0, len(nums)
         while lo < hi:
             mid = (lo+hi)//2
-            if (nums[mid] < nums[0]) == (target < nums[0]):
-                if nums[mid] < target:
-                    lo = mid + 1
-                elif nums[mid] > target:
-                    hi = mid
-                else:
-                    return mid
-                    # print(mid)
-                    # return
-            elif target < nums[0]:
-                lo = mid + 1
-            else:
+            if target < nums[0] < nums[mid]:
+                lo = mid+1
+            elif target >= nums[0] > nums[mid]:
                 hi = mid
+            elif nums[mid] < target:
+                lo = mid+1
+            elif nums[mid] > target:
+                hi = mid
+            else:
+                # print(mid)
+                # return
+                return mid
 
         # print(-1)
         return -1
