@@ -6,6 +6,7 @@ class Solution:
         lo, hi = 0, len(nums)
         while lo < hi:
             mid = (lo+hi)//2
+            print(mid)
             if target < nums[0] < nums[mid]:
                 lo = mid+1
             elif target >= nums[0] > nums[mid]:
@@ -26,5 +27,5 @@ class Solution:
 test = Solution()
 test.search([4,5,6,7,0,1,2], 0) # 4
 
-test = Solution()
-test.search([4,5,6,7,0,1,2], 3) # -1
+# test = Solution()
+# test.search([4,5,6,7,0,1,2], 3) # -1
