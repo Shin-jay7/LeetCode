@@ -3,31 +3,26 @@ from __future__ import annotations
 
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        board2 = map(list, zip(*board))
+        for row in board:
+            if not self.isValid(row):
+                return False
 
-        board3 = []
+        for col in zip(*board):
+            if not self.isValid(col):
+                return False
+
         for i in [0,3,6]:
             for j in [0,3,6]:
-                chunk = [board[x][y] for x in range(i,i+3)\
+                square = [board[x][y] for x in range(i,i+3)\
                                       for y in range(j,j+3)]
-                board3.append(chunk)
-
-        # print(self.board_checker(board) and self.board_checker(board2)\
-        #       and self.board_checker(board3))
-        # return
-        return self.board_checker(board) and self.board_checker(board2)\
-               and self.board_checker(board3)
-
-    def board_checker(self, board: List[List[str]]) -> bool:
-        for row in board:
-            nums = ["1","2","3","4","5","6","7","8","9",\
-                    ".",".",".",".",".",".",".",".","."]
-            for pos in row:
-                if pos in nums:
-                    nums.remove(pos)
-                else:
+                if not self.isValid(square):
                     return False
         return True
+
+    def isValid(self, unit: List[str]) -> bool:
+        unit = [_ for _ in unit if _ != '.']
+
+        return len(set(unit)) == len(unit)
 
 
 test = Solution()
