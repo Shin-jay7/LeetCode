@@ -21,29 +21,17 @@ class Solution:
         chunk7, chunk8, chunk9 = [], [], []
         for index,row in enumerate(board):
             if index in [0,1,2]:
-                for idx,pos in enumerate(row):
-                    if idx in [0,1,2]:
-                        chunk1.append(pos)
-                    elif idx in [3,4,5]:
-                        chunk2.append(pos)
-                    else:
-                        chunk3.append(pos)
+                chunk1 += row[:3]
+                chunk2 += row[3:6]
+                chunk3 += row[6:]
             elif index in [3,4,5]:
-                for idx,pos in enumerate(row):
-                    if idx in [0,1,2]:
-                        chunk4.append(pos)
-                    elif idx in [3,4,5]:
-                        chunk5.append(pos)
-                    else:
-                        chunk6.append(pos)
+                chunk4 += row[:3]
+                chunk5 += row[3:6]
+                chunk6 += row[6:]
             else:
-                for idx,pos in enumerate(row):
-                    if idx in [0,1,2]:
-                        chunk7.append(pos)
-                    elif idx in [3,4,5]:
-                        chunk8.append(pos)
-                    else:
-                        chunk9.append(pos)
+                chunk7 += row[:3]
+                chunk8 += row[3:6]
+                chunk9 += row[6:]
 
         board3 = [chunk1,chunk2,chunk3,chunk4,chunk5,chunk6,chunk7,chunk8,chunk9]
 
