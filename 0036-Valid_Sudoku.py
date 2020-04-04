@@ -3,30 +3,19 @@ from __future__ import annotations
 
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        for row in board:
-            nums = ["1","2","3","4","5","6","7","8","9",\
-                    ".",".",".",".",".",".",".",".","."]
-            for pos in row:
-                if pos in nums:
-                    nums.remove(pos)
-                else:
-                    # print("False in board1")
-                    # return
-                    return False
+        def board_checker(board: List[List[str]]) -> bool:
+            for row in board:
+                nums = ["1","2","3","4","5","6","7","8","9",\
+                        ".",".",".",".",".",".",".",".","."]
+                for pos in row:
+                    if pos in nums:
+                        nums.remove(pos)
+                    else:
+                        return False
+            return True
 
         board2 = map(list, zip(*board))
-        for col in board2:
-            nums = ["1","2","3","4","5","6","7","8","9",\
-                    ".",".",".",".",".",".",".",".","."]
-            for pos in col:
-                if pos in nums:
-                    nums.remove(pos)
-                else:
-                    # print("False in board2")
-                    # return
-                    return False
 
-        board3 = []
         chunk1, chunk2, chunk3 = [], [], []
         chunk4, chunk5, chunk6 = [], [], []
         chunk7, chunk8, chunk9 = [], [], []
@@ -56,30 +45,11 @@ class Solution:
                     else:
                         chunk9.append(pos)
 
-        board3.append(chunk1)
-        board3.append(chunk2)
-        board3.append(chunk3)
-        board3.append(chunk4)
-        board3.append(chunk5)
-        board3.append(chunk6)
-        board3.append(chunk7)
-        board3.append(chunk8)
-        board3.append(chunk9)
+        board3 = [chunk1,chunk2,chunk3,chunk4,chunk5,chunk6,chunk7,chunk8,chunk9]
 
-        for chunk in board3:
-            nums = ["1","2","3","4","5","6","7","8","9",\
-                    ".",".",".",".",".",".",".",".","."]
-            for pos in chunk:
-                if pos in nums:
-                    nums.remove(pos)
-                else:
-                    # print("False in board3")
-                    # return
-                    return False
-
-        # print(True)
+        # print(board_checker(board) and board_checker(board2) and board_checker(board3))
         # return
-        return True
+        return board_checker(board) and board_checker(board2) and board_checker(board3)
 
 
 test = Solution()
@@ -106,4 +76,17 @@ test.isValidSudoku([
   [".","6",".",".",".",".","2","8","."],
   [".",".",".","4","1","9",".",".","5"],
   [".",".",".",".","8",".",".","7","9"]
+]) # False
+
+test = Solution()
+test.isValidSudoku([
+    [".",".",".",".","5",".",".","1","."],
+    [".","4",".","3",".",".",".",".","."],
+    [".",".",".",".",".","3",".",".","1"],
+    ["8",".",".",".",".",".",".","2","."],
+    [".",".","2",".","7",".",".",".","."],
+    [".","1","5",".",".",".",".",".","."],
+    [".",".",".",".",".","2",".",".","."],
+    [".","2",".","9",".",".",".",".","."],
+    [".",".","4",".",".",".",".",".","."]
 ]) # False
