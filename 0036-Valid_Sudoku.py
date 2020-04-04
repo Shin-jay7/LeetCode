@@ -3,41 +3,31 @@ from __future__ import annotations
 
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        def board_checker(board: List[List[str]]) -> bool:
-            for row in board:
-                nums = ["1","2","3","4","5","6","7","8","9",\
-                        ".",".",".",".",".",".",".",".","."]
-                for pos in row:
-                    if pos in nums:
-                        nums.remove(pos)
-                    else:
-                        return False
-            return True
-
         board2 = map(list, zip(*board))
 
-        chunk1, chunk2, chunk3 = [], [], []
-        chunk4, chunk5, chunk6 = [], [], []
-        chunk7, chunk8, chunk9 = [], [], []
-        for index,row in enumerate(board):
-            if index in [0,1,2]:
-                chunk1 += row[:3]
-                chunk2 += row[3:6]
-                chunk3 += row[6:]
-            elif index in [3,4,5]:
-                chunk4 += row[:3]
-                chunk5 += row[3:6]
-                chunk6 += row[6:]
-            else:
-                chunk7 += row[:3]
-                chunk8 += row[3:6]
-                chunk9 += row[6:]
+        board3 = []
+        for i in [0,3,6]:
+            for j in [0,3,6]:
+                chunk = [board[x][y] for x in range(i,i+3)\
+                                      for y in range(j,j+3)]
+                board3.append(chunk)
 
-        board3 = [chunk1,chunk2,chunk3,chunk4,chunk5,chunk6,chunk7,chunk8,chunk9]
-
-        # print(board_checker(board) and board_checker(board2) and board_checker(board3))
+        # print(self.board_checker(board) and self.board_checker(board2)\
+        #       and self.board_checker(board3))
         # return
-        return board_checker(board) and board_checker(board2) and board_checker(board3)
+        return self.board_checker(board) and self.board_checker(board2)\
+               and self.board_checker(board3)
+
+    def board_checker(self, board: List[List[str]]) -> bool:
+        for row in board:
+            nums = ["1","2","3","4","5","6","7","8","9",\
+                    ".",".",".",".",".",".",".",".","."]
+            for pos in row:
+                if pos in nums:
+                    nums.remove(pos)
+                else:
+                    return False
+        return True
 
 
 test = Solution()
