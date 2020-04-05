@@ -3,63 +3,79 @@ from __future__ import annotations
 
 class Solution:
     def solveSudoku(self, board: List[List[str]]) -> None:
-        self.board = board
-        self.state = {str(x): 0 for x in range(1,10)}
-        self.initState()
+        self.initBoard(board)
         self.solve()
 
-    def initState(self):
-        for row in range(9):
-            for col in range(9):
-                if self.board[row][col] != ".":
-                    self.state[self.board[row][col]] += 1
+    def initBoard(self, board):
+        self.board = board
+        self.unassigned_pos = set([(r_idx,c_idx) for r_idx in range(9)\
+                                                 for c_idx in range(9)\
+                                  if self.board[r_idx][c_idx] == "."])
+
+        self.nums = [[set("123456789") for c_idx in range(9)] for r_idx in range(9)]
+        for r_idx in range(9):
+            for c_idx in range(9):
+                num = self.board[r_idx][c_idx]
+                if num != ".":
+                    self.nums[r_idx][c_idx] = set()
+                    self.update_nums((r_idx,c_idx), num)
 
     def solve(self):
-        row, col = self.findUnassigned()
-        if row == -1 and col == -1:
+        if not self.unassigned_pos:
             return True
 
-        for num in set([x for x in self.state if self.state[x] != 9]):
-            if self.isValid(row, col, num):
-                self.board[row][col] = num
-                self.state[num] += 1
-                if self.solve():
-                    return True
-                self.board[row][col] = "."
-                self.state[num] -= 1
+        # find the position with fewest candidates
+        pos = min(self.unassigned_pos, key=lambda pos: len(self.nums[pos[0]][pos[1]]))
+
+        # fill the position with one of the candidates and solve recursively
+        r_idx, c_idx = pos
+        for num in list(self.nums[r_idx][c_idx]):
+            updated_positions = self.fill_pos(pos, num)
+            if self.solve():
+                return True
+            self.unfill_pos(pos, num, updated_positions)
+
+        # if no solution found, go back and try the next canidate
         return False
 
-    def findUnassigned(self):
-        for row in range(9):
-            for col in range(9):
-                if self.board[row][col] == ".":
-                    return row, col
-        return -1, -1
+    def fill_pos(self, pos, num):
+        r_idx, c_idx = pos
+        self.board[r_idx][c_idx] = num
 
-    def isValid(self, row, col, check_num):
-        boxrow = row - row%3
-        boxcol = col - col%3
-        if self.isValidRow(row,check_num) and\
-           self.isValidCol(col,check_num) and\
-           self.isValidSquare(boxrow, boxcol, check_num):
-            return True
-        return False
+        self.unassigned_pos.remove(pos)
+        updated_positions = self.update_nums(pos, num)
 
-    def isValidRow(self, row, check_num):
-        for col in range(9):
-            if self.board[row][col] == check_num:
-                return False
-        return True
+        return updated_positions
 
-    def isValidCol(self, col, check_num):
-        for row in range(9):
-            if self.board[row][col] == check_num:
-                return False
-        return True
+    def unfill_pos(self, pos, num, updated_positions):
+        r_idx, c_idx = pos
+        self.board[r_idx][c_idx] = "."
+        self.unassigned_pos.add(pos)
 
-    def isValidSquare(self, row, col, check_num):
-        for r in range(row,row+3):
-            for c in range(col, col+3):
-                if self.board[r][c] == check_num:
-                    return False
-        return True
+        for r_idx, c_idx in updated_positions:
+            self.nums[r_idx][c_idx].add(num)
+
+    def update_nums(self, filled_pos, num):
+        updated_positions = []
+        for r_idx, c_idx in self.related_pos(filled_pos):
+            if (self.board[r_idx][c_idx] == ".") and (num in self.nums[r_idx][c_idx]):
+               self.nums[r_idx][c_idx].remove(num)
+               updated_positions.append((r_idx, c_idx))
+        return updated_positions
+
+    def related_pos(self, pos):
+        return list(set(self.same_row(pos) + self.same_col(pos) + self.same_square(pos)))
+
+    def same_row(self, pos):
+        return [(pos[0], c_idx) for c_idx in range(9)]
+
+    def same_col(self, pos):
+        return [(r_idx, pos[1]) for r_idx in range(9)]
+
+    def same_square(self, pos):
+        first_r_idx = (pos[0] // 3) * 3
+        first_c_idx = (pos[1] // 3) * 3
+        return [
+            (first_r_idx + square_r_idx, first_c_idx + square_c_idx)\
+            for square_r_idx in range(3) for square_c_idx in range(3)
+        ]
