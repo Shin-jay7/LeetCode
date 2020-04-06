@@ -3,32 +3,23 @@ from __future__ import annotations
 
 class Solution:
     def countAndSay(self, n: int) -> str:
-        if n == 1:
-            # print("1")
-            # return
-            return "1"
-
-        nums = "1"
-        for _ in range(n-1):
-            pre, cur, ans = nums[0], "", ""
-            chunks = []
-            for num in nums:
-                if num == pre:
-                    cur += num
+        def cns(nums):
+            nums += "#"
+            ans = ""
+            count = 1
+            for i in range(len(nums)-1):
+                if nums[i] == nums[i+1]:
+                    count += 1
                 else:
-                    chunks.append(cur)
-                    cur = num
-                    pre = num
-            if cur:
-                chunks.append(cur)
+                    ans += str(count) + nums[i]
+                    count = 1
+            return ans
 
-            for chunk in chunks:
-                ans += str(len(chunk)) + chunk[0]
+        start = "1"
+        for _ in range(n-1):
+            start = cns(start)
 
-            nums = ans
-
-        # print(nums)
-        return nums
+        return start
 
 
 
