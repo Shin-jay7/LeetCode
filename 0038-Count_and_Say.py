@@ -1,26 +1,18 @@
 from __future__ import annotations
+import itertools
 
 
 class Solution:
     def countAndSay(self, n: int) -> str:
-        def cns(nums):
-            nums += "#"
-            ans = ""
-            count = 1
-            for i in range(len(nums)-1):
-                if nums[i] == nums[i+1]:
-                    count += 1
-                else:
-                    ans += str(count) + nums[i]
-                    count = 1
-            return ans
-
-        start = "1"
+        nums = "1"
         for _ in range(n-1):
-            start = cns(start)
+            temp = ""
+            for num, group in itertools.groupby(nums):
+                count = len(list(group))
+                temp += str(count) + num
+            nums = temp
 
-        return start
-
+        return nums
 
 
 test = Solution()
