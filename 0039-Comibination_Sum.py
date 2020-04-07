@@ -9,14 +9,15 @@ class Solution:
         # print(ans)
         return ans
 
-    def dfs(self, nums, target, idx, sum_, ans):
-        if target == 0:
-            ans.append(sum_)
+    def dfs(self, nums, remain, idx, comb, ans):
+        # print(ans,comb,remain)
+        if remain == 0:
+            ans.append(comb)
             return
         for i in range(idx,len(nums)):
-            if nums[i] > target:
+            if nums[i] > remain:
                 break
-            self.dfs(nums, target-nums[i], i, sum_+[nums[i]], ans)
+            self.dfs(nums, remain-nums[i], i, comb+[nums[i]], ans)
 
 
 test = Solution()
