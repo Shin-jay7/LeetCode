@@ -10,12 +10,17 @@ class Solution:
         l_max, r_max = height[l], height[r]
 
         while l < r:
-            l_max, r_max = max(height[l], l_max), max(height[r], r_max)
-            if l_max <= r_max:
-                vol += l_max - height[l]
+            if height[l] < height[r]:
+                if height[l] > l_max:
+                    l_max = height[l]
+                else:
+                    vol += l_max - height[l]
                 l += 1
             else:
-                vol += r_max - height[r]
+                if height[r] > r_max:
+                    r_max = height[r]
+                else:
+                    vol += r_max - height[r]
                 r -= 1
 
         return vol
