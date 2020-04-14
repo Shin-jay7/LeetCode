@@ -18,8 +18,15 @@ class Solution:
         states = set([0])
 
         for char in s:
-            states = set([transfer.get((at, token))\
-                         for at in states for token in [char, '*', '?']])
+            next_states = set()
+            for token in [char, '*', '?']:
+                for at in states:
+                    next_state = transfer.get((at, token))
+                    if next_state != None:
+                        next_states.add(next_state)
+
+            states = next_states
+
         # print(states)
 
         # print(accept in states)
