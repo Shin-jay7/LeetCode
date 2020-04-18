@@ -1,17 +1,15 @@
 from __future__ import annotations
+from itertools import permutations
 
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
         ans = []
-        self.dfs(nums, [], ans)
-        # print(ans)
-        return ans
+        for l in permutations(nums):
+            l = list(l)
+            if not l in ans:
+                ans.append(l)
 
-    def dfs(self, nums, perm, ans):
-        if not nums and not perm in ans:
-            ans.append(perm)
-        for i in range(len(nums)):
-            self.dfs(nums[:i]+nums[i+1:], perm+[nums[i]], ans)
+        return ans
 
 
 
