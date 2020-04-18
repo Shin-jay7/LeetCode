@@ -1,30 +1,44 @@
 from __future__ import annotations
-from collections import Counter
+
+"""
+either the new element does not exist in rest (in this case just insert it
+everywhere like before) or we only insert up to the first occurrence
+rest.index(head), because any other slot after the first occurrence can be
+thought as the duplicate of the first occurrence as the inserted element
+and the slot being the existing one.
+"""
 
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        ans = []
-
-        def btrack(perm, counter):
-            if len(perm)==len(nums):
-                ans.append(perm[:])
-                # https://stackoverflow.com/questions/32448414/what-does-colon-at-assignment-for-list-do-in-python
-            for i in counter:
-                if counter[i] > 0:
-                    perm.append(i)
-                    counter[i] -= 1
-                    btrack(perm, counter)
-                    perm.pop()
-                    counter[i] += 1
-
-        btrack([], Counter(nums))
+        ans = [[]]
+        for n in nums:
+            # print("** first loop begins")
+            # print("n: "+str(n))
+            perms = []
+            for l in ans:
+                # print("** second loop begins")
+                # print("l: "+str(l))
+                # print("(l+[n]).index(n)+1: "+str((l+[n]).index(n)+1))
+                for i in range((l+[n]).index(n)+1):
+                    # print("** third loop begins")
+                    # print("i: "+str(i))
+                    # print("l[:i]+[n]+l[i:]: "+str(l[:i]+[n]+l[i:]))
+                    perms.append(l[:i]+[n]+l[i:])
+            #         print("** third loop ends**")
+            #     print("** second loop ends**")
+            # print("** first loop ends**")
+            ans = perms
+            # print("ans: "+str(ans))
 
         # print(ans)
         return ans
 
 
 test = Solution()
-test.permuteUnique([1,1,2])
+test.permuteUnique([1,1,2,3])
+
+# test = Solution()
+# test.permuteUnique([1,1,2])
 """
 [
   [1,1,2],
