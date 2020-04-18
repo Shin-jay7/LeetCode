@@ -3,10 +3,20 @@ from __future__ import annotations
 
 class Solution:
     def myPow(self, x: float, n: int) -> float:
+        # spice for faster execution time
+        # ***
+        if n == 0:
+            return 1
+
+        if n == 1:
+            return x
+        # ***
+
         ans = 1
 
         if n < 0:
-            return 1 / self.myPow(x, -n)
+            x = 1 / x
+            n = -n
 
         while n:
             if n % 2:
