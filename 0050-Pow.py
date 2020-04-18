@@ -4,12 +4,19 @@ from __future__ import annotations
 class Solution:
     def myPow(self, x: float, n: int) -> float:
         ans = 1
-        for i in range(abs(n)):
-            ans *= x
 
-        return ans if n >= 0 else 1/ans
-        # print(ans if n >= 0 else 1/ans)
+        if n < 0:
+            x = 1 / x
+            n = -n
 
+        while n:
+            if n % 2:
+                ans *= x
+            x *= x
+            n //= 2
+
+        # print(ans)
+        return ans
 
 
 test = Solution()
