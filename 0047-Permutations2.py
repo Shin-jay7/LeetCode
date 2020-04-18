@@ -1,17 +1,23 @@
 from __future__ import annotations
-from itertools import permutations
+from collections import Counter
 
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
         ans = []
-        for l in permutations(nums):
-            l = list(l)
-            if not l in ans:
-                ans.append(l)
 
+        def btrack(perm, counter):
+            if len(perm)==len(nums):
+                ans.append(perm[:])
+            for i in counter:
+                if counter[i] > 0:
+                    perm.append(i)
+                    counter[i] -= 1
+                    btrack(perm, counter)
+                    perm.pop()
+                    counter[i] += 1
+
+        btrack([], Counter(nums))
         return ans
-
-
 
 
 test = Solution()
