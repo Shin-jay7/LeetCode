@@ -6,8 +6,7 @@ class Solution:
         ans = 1
 
         if n < 0:
-            x = 1 / x
-            n = -n
+            return 1 / self.myPow(x, -n)
 
         while n:
             if n % 2:
@@ -15,7 +14,6 @@ class Solution:
             x *= x
             n //= 2
 
-        # print(ans)
         return ans
 
 
