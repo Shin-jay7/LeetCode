@@ -4,15 +4,14 @@ from __future__ import annotations
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         ans = [[]]
-        self.dfs(nums, [], ans)
-        # print(ans)
-        return ans
+        for n in nums:
+          perm = []
+          for l in ans:
+            for i in range(len(l)+1):
+              perm.append(l[:i]+[n]+l[i:])
+          ans = perm
 
-    def dfs(self, nums, perm, ans):
-        if not nums:
-            ans.append(perm)
-        for i in range(len(nums)):
-            self.dfs(nums[:i]+nums[i+1:], perm+[nums[i]], ans)
+        return ans
 
 
 test = Solution()

@@ -7,7 +7,7 @@ class Solution:
         for n in nums:
             # print("** first loop begins")
             # print("n: "+str(n))
-            perm = []
+            perms = []
             for l in ans:
                 # print("** second loop begins **")
                 # print("l: "+str(l))
@@ -17,12 +17,12 @@ class Solution:
                     # print("** third loop begins")
                     # print("i: "+str(i))
                     # print("l[:i]+[n]+l[i:]: "+str(l[:i]+[n]+l[i:]))
-                    perm.append(l[:i]+[n]+l[i:])
-                    # print("perm: "+str(perm))
+                    perms.append(l[:i]+[n]+l[i:])
+                    # print("perms: "+str(perms))
             #         print("** third loop ends**")
             #     print("** second loop ends**")
             # print("** first loop ends**")
-            ans = perm
+            ans = perms
             # print("ans: "+str(ans))
 
         # print(ans)
