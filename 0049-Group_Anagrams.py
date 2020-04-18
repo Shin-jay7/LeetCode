@@ -7,14 +7,14 @@ class Solution:
         ans = []
         dic = defaultdict(list)
 
-        for idx,word in enumerate(strs):
+        for word in strs:
             sorted_w = "".join(sorted(word))
-            dic[sorted_w].append(idx)
+            dic[sorted_w].append(word)
 
         for key in dic.keys():
             anagram = []
-            for val in dic[key]:
-                anagram.append(strs[val])
+            for word in dic[key]:
+                anagram.append(word)
             ans.append(anagram)
 
         # print(ans)
