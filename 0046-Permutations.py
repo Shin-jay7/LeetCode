@@ -3,7 +3,7 @@ from __future__ import annotations
 
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        ans = []
+        ans = [[]]
         self.dfs(nums, [], ans)
         # print(ans)
         return ans
