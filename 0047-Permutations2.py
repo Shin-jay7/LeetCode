@@ -1,22 +1,17 @@
 from __future__ import annotations
 from collections import Counter
 
+
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        ans = []
+        ans = [[]]
+        for n in nums:
+            perms = []
+            for l in ans:
+                for i in range((l+[n]).index(n)+1):
+                    perms.append(l[:i]+[n]+l[i:])
+            ans = perms
 
-        def btrack(perm, counter):
-            if len(perm)==len(nums):
-                ans.append(perm[:])
-            for i in counter:
-                if counter[i] > 0:
-                    perm.append(i)
-                    counter[i] -= 1
-                    btrack(perm, counter)
-                    perm.pop()
-                    counter[i] += 1
-
-        btrack([], Counter(nums))
         return ans
 
 
