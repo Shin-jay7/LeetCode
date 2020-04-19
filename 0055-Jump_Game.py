@@ -3,26 +3,13 @@ from __future__ import annotations
 
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        n, start, end, step, max_ = len(nums), 0, nums[0], 1, 0
+        pos = len(nums)-1
+        for i in range(len(nums)-1, -1, -1):
+            if nums[i]+i >= pos:
+                pos = i
 
-        while end < n-1:
-            step += 1
-            for i in range(start,end+1):
-                if nums[i]+i >= n-1:
-                    # print(True)
-                    # return
-                    return True
-                max_ = max(max_, nums[i]+i)
-            start, end = end, max_
-            if nums[start] == 0 and start == end:
-                # print(False)
-                # return
-                return False
-
-        # print(True)
-        # return
-        return True
-
+        # print(pos==0)
+        return pos == 0
 
 
 test = Solution()
