@@ -5,7 +5,8 @@ class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         ans = []
 
-        def dfs(queens: int, posDiff: int, posSum: int) -> None:
+        def dfs(queens: List[int], posDiff: List[int],\
+                posSum: List[int]) -> None:
             """
             queens is a list of the queen's index in each row on the board
             """
