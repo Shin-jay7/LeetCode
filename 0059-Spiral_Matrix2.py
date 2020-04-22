@@ -4,45 +4,34 @@ from __future__ import annotations
 class Solution:
     def generateMatrix(self, n: int) -> List[List[int]]:
         ans = [[""]*n for _ in range(n)]
-        seen = [[False]*n for _ in range(n)]
-        r, c, num = 0, 0, 0
+        left, right, top, down, num = 0, n-1, 0, n-1, 1
 
-        for _ in range(n*n):
-            while c < n and not seen[r][c]:
+        while left <= right and top <= down:
+            for _ in range(left, right+1):
+                ans[top][_] = num
                 num += 1
-                ans[r][c] = num
-                seen[r][c] = True
-                c += 1
-            r += 1
-            c -= 1
-            while r < n and not seen[r][c]:
-                num += 1
-                ans[r][c] = num
-                seen[r][c] = True
-                r += 1
-            r -= 1
-            c -= 1
-            while 0 <= c and not seen[r][c]:
-                num += 1
-                ans[r][c] = num
-                seen[r][c] = True
-                c -= 1
-            r -= 1
-            c += 1
-            while 0 <= r and not seen[r][c]:
-                num += 1
-                ans[r][c] = num
-                seen[r][c] = True
-                r -= 1
-            r += 1
-            c += 1
+            top += 1
 
-        # print(ans)
+            for _ in range(top, down+1):
+                ans[_][right] = num
+                num += 1
+            right -= 1
+
+            for _ in range(right, left-1, -1):
+                ans[down][_] = num
+                num += 1
+            down -= 1
+
+            for _ in range(down, top-1, -1):
+                ans[_][left] = num
+                num += 1
+            left += 1
+
         return ans
 
 
 test = Solution()
-test.generateMatrix(0)
+test.generateMatrix(3)
 """
 [
  [ 1, 2, 3 ],
