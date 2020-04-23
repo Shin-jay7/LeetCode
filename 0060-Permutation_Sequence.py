@@ -1,23 +1,33 @@
 from __future__ import annotations
+import math
 
 
 class Solution:
     def getPermutation(self, n: int, k: int) -> str:
-        ans = [[]]
+        """
+        say n = 4, k = 14
+        [1,2,3,4]
+        1 + (permutations of 2,3,4 -> 6 perms)
+        2 + (permutations of 2,3,4 -> 6 perms)
+        3 + (permutations of 2,3,4 -> 6 perms)  <- here!: index = (k-1) // 6
+        4 + (permutations of 2,3,4 -> 6 perms)
+        """
+        ans = ""
+        nums = [str(_) for _ in range(1,n+1)]
+        fact = math.factorial(n)
+        k -= 1
 
-        for num in range(1,n+1):
-            perm = []
-            for l in ans:
-                for i in range(len(l)+1):
-                    perm.append(l[:i]+[num]+l[i:])
-            ans = perm
+        while nums:
+            fact //= len(nums)
+            idx, k = divmod(k, fact)
+            ans += nums.pop(idx)
 
-        return "".join(map(str, sorted(ans)[k-1]))
-        # print("".join(map(str, sorted(ans)[k-1])))
+        return ans
+        # print(ans)
 
 
 test = Solution()
 test.getPermutation(3,3) # "213"
 
 test = Solution()
-test.getPermutation(4,9) # "2314"
+test.getPermutation(4,14) # "3142"
