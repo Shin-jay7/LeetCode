@@ -1,11 +1,19 @@
 from __future__ import annotations
-from itertools import permutations
 
 
 class Solution:
     def getPermutation(self, n: int, k: int) -> str:
-        return "".join(map(str, (list(permutations(range(1,n+1)))[k-1])))
-        # print("".join(map(str, (list(permutations(range(1,n+1)))[k-1]))))
+        ans = [[]]
+
+        for num in range(1,n+1):
+            perm = []
+            for l in ans:
+                for i in range(len(l)+1):
+                    perm.append(l[:i]+[num]+l[i:])
+            ans = perm
+
+        return "".join(map(str, sorted(ans)[k-1]))
+        # print("".join(map(str, sorted(ans)[k-1])))
 
 
 test = Solution()
