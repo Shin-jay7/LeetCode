@@ -5,23 +5,23 @@ import re
 class Solution:
     def isNumber(self, s: str) -> bool:
         states = [{},
-                  # initial state
+                  # state(1): initial state
                   {"blank": 1, "sign": 2, "digit": 3, ".": 4},
-                  # found sign
+                  # state(2): found sign
                   {"digit": 3, ".": 4},
-                  # digit consumer (loop until non-digit)
+                  # state(3): digit consumer (loop until non-digit)
                   {"digit": 3, ".": 5, "e": 6, "blank": 9},
-                  # found dot (only a digit is valid)
+                  # state(4): found dot (only a digit is valid)
                   {"digit": 5},
-                  # after dot (expect digits, e or end of valid input)
+                  # state(5): after dot (expect digits, e or end of valid input)
                   {"digit": 5, "e": 6, "blank": 9},
-                  # found "e" (only sign or digit valid)
+                  # state(6): found "e" (only sign or digit valid)
                   {"sign": 7, "digit": 8},
-                  # sign after "e" (only digit)
+                  # state(7): sign after "e" (only digit)
                   {"digit": 8},
-                  # digit after "e" (expect digits or end of valid input)
+                  # state(8): digit after "e" (expect digits or end of valid input)
                   {"digit": 8, "blank": 9},
-                  # terminal state (fail if non-blank found)
+                  # state(9): terminal state (fail if non-blank found)
                   {"blank": 9}
         ]
 
