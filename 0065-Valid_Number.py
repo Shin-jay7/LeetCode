@@ -4,46 +4,27 @@ import re
 
 class Solution:
     def isNumber(self, s: str) -> bool:
-        states = [{},
-                  # state(1): initial state
-                  {"blank": 1, "sign": 2, "digit": 3, ".": 4},
-                  # state(2): found sign
-                  {"digit": 3, ".": 4},
-                  # state(3): digit consumer (loop until non-digit)
-                  {"digit": 3, ".": 5, "e": 6, "blank": 9},
-                  # state(4): found dot (only a digit is valid)
-                  {"digit": 5},
-                  # state(5): after dot (expect digits, e or end of valid input)
-                  {"digit": 5, "e": 6, "blank": 9},
-                  # state(6): found "e" (only sign or digit valid)
-                  {"sign": 7, "digit": 8},
-                  # state(7): sign after "e" (only digit)
-                  {"digit": 8},
-                  # state(8): digit after "e" (expect digits or end of valid input)
-                  {"digit": 8, "blank": 9},
-                  # state(9): terminal state (fail if non-blank found)
-                  {"blank": 9}
-        ]
+        s = s.strip()
+        found_dot = found_e = found_digit = False
 
-        currentState = 1
-
-        for c in s:
-            if c in "0123456789":
-                c = "digit"
-            elif c in " \t\n":
-                c = "blank"
-            elif c in "+-":
-                c = "sign"
-
-            if c not in states[currentState]:
+        for i, char in enumerate(s):
+            if char in "+-":
+                if i > 0 and s[i-1] != "e":
+                    return False
+            elif char == ".":
+                if found_dot or found_e:
+                    return False
+                found_dot = True
+            elif char == "e":
+                if found_e or not found_digit:
+                    return False
+                found_e, found_digit = True, False
+            elif char in "0123456789":
+                found_digit = True
+            else:
                 return False
 
-            currentState = states[currentState][c]
-
-        if currentState not in [3, 5, 8, 9]:
-            return False
-
-        return True
+        return found_digit
 
 
 test = Solution()
