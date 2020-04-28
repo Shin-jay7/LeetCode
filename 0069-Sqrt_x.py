@@ -1,17 +1,21 @@
 from __future__ import annotations
 
 
-# https://math.mit.edu/~stevenj/18.335/newton-sqrt.pdf
 class Solution:
     def mySqrt(self, x: int) -> int:
-        if x == 1: return 1
+        if x <= 1: return x
 
-        ans = x//2
-        while ans*ans > x:
-            ans = int((ans + x/ans) / 2)
+        lo, hi = 1, x
 
-        return ans
-        # print(ans)
+        while lo < hi:
+            mid = lo + (hi-lo+1)//2
+            if mid <= x//mid:
+                lo = mid
+            else:
+                hi = mid-1
+
+        return lo
+        # print(lo)
 
 test = Solution()
 test.mySqrt(1) # 1
