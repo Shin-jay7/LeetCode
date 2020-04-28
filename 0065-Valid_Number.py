@@ -1,30 +1,35 @@
 from __future__ import annotations
-import re
 
 
 class Solution:
     def isNumber(self, s: str) -> bool:
-        s = s.strip()
-        found_dot = found_e = found_digit = False
+        states = [
+            {" ": 0, "sign": 1, "digit": 2, ".": 3},
+            {"digit": 2, ".": 3},
+            {"digit": 2, ".": 4, "e": 5, " ": 8},
+            {"digit": 4},
+            {"digit": 4, "e": 5, " ": 8},
+            {"sign": 6, "digit": 7},
+            {"digit": 7},
+            {"digit": 7, " ": 8},
+            {" ": 8}
+        ]
 
-        for i, char in enumerate(s):
+        cur = 0
+
+        for char in s:
             if char in "+-":
-                if i > 0 and s[i-1] != "e":
-                    return False
-            elif char == ".":
-                if found_dot or found_e:
-                    return False
-                found_dot = True
-            elif char == "e":
-                if found_e or not found_digit:
-                    return False
-                found_e, found_digit = True, False
+                char = "sign"
             elif char in "0123456789":
-                found_digit = True
-            else:
+                char = "digit"
+
+            if char not in states[cur]:
                 return False
 
-        return found_digit
+            cur = states[cur][char]
+
+        return cur in [2,4,7,8]
+
 
 
 test = Solution()
