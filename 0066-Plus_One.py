@@ -8,11 +8,7 @@ class Solution:
             carry, num = divmod(digits[i]+carry, 10)
             digits[i] = num
 
-        if carry:
-            digits = [carry] + digits
-
-        return digits
-        # print(digits)
+        return [carry] + digits if carry else digits
 
 
 test = Solution()
