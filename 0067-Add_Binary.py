@@ -3,22 +3,22 @@ from __future__ import annotations
 
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
-        sum_ = [int(num) for num in str(int(a) + int(b))]
         carry = 0
-
-        for i in range(len(sum_)-1,-1,-1):
-            carry, digit = divmod(sum_[i]+carry, 2)
-            sum_[i] = digit
-
-        if carry:
-            sum_ = [carry]+sum_
-
         ans = ""
-        for num in sum_:
+
+        a = list(a)
+        b = list(b)
+
+        while a or b or carry:
+            if a:
+                carry += int(a.pop())
+            if b:
+                carry += int(b.pop())
+            carry, num = divmod(carry, 2)
             ans += str(num)
 
-        return ans
-        # print(ans)
+        return ans[::-1]
+        # print(ans[::-1])
 
 
 test = Solution()
