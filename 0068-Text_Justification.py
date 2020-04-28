@@ -4,41 +4,23 @@ from __future__ import annotations
 class Solution:
     def fullJustify(self, words: List[str], maxWidth: int)\
                     -> List[int]:
-        line = ""
-        lines = []
-
+        ans, wordsList, wordsLength = [], [], 0
         for word in words:
-            if len(line)+len(word) > maxWidth:
-                lines.append(line.strip())
-                line = ""
-            line += word + " "
+            if wordsLength + len(word) + len(wordsList) > maxWidth:
+                for i in range(maxWidth-wordsLength):
+                    wordsList[i % (len(wordsList)-1 or 1)] += " "
+                    """
+                    You can argue that the string concatenation for the round robin
+                    is costly as it's O(m) increasing the worst case by that factor.
+                    Instead you could convert to a list and append the blank spaces.
+                    """
+                ans.append("".join(wordsList))
+                wordsList, wordsLength = [], 0
+            wordsList += [word]
+            wordsLength += len(word)
 
-        if line:
-            lines.append(line.strip())
-
-        ans = []
-        for idx,line in enumerate(lines):
-            if idx == len(lines)-1 or " " not in line:
-                ans.append(line.ljust(maxWidth))
-            else:
-                diff = maxWidth-len(line)
-                add, left = divmod(diff, line.count(" "))
-                i = j = 0
-                for char in line:
-                    if char == " ":
-                        line = line[:i+1] + " "*add + line[i+1:]
-                        i += add
-                        if left:
-                            line = line[:j+1] + " " + line[j+1:]
-                            left -= 1
-                            j += 1
-                    i += 1
-                    j += 1
-
-                ans.append(line)
-
-        return ans
-        # print(ans)
+        return ans + [" ".join(wordsList).ljust(maxWidth)]
+        # print(ans + [" ".join(wordsList).ljust(maxWidth)])
 
 
 test = Solution()
