@@ -8,21 +8,29 @@ class Solution:
 
         dict_t = Counter(t)
         required = len(dict_t)
+
+        filtered_s = []
+        for idx,char in enumerate(s):
+            if char in dict_t:
+                filtered_s.append((idx,char))
+
         l, r, checked, window = 0, 0, 0, {}
         ans = float("inf"), None, None
 
-        while r < len(s):
-            char = s[r]
+        while r < len(filtered_s):
+            char = filtered_s[r][1]
             window[char] = window.get(char, 0) + 1
-            if char in dict_t and window[char] == dict_t[char]:
+            if window[char] == dict_t[char]:
                 checked += 1
 
             while l <= r and checked == required:
-                char = s[l]
-                if r-l+1 < ans[0]:
-                    ans = (r-l+1, l, r)
+                char = filtered_s[l][1]
+                end = filtered_s[r][0]
+                start = filtered_s[l][0]
+                if end-start+1 < ans[0]:
+                    ans = (end-start+1, start, end)
                 window[char] -= 1
-                if char in dict_t and window[char] < dict_t[char]:
+                if window[char] < dict_t[char]:
                     checked -= 1
                 l += 1
 
