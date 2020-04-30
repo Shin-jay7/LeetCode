@@ -1,21 +1,10 @@
 from __future__ import annotations
+from itertools import combinations
 
 
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
-        ans = []
-        self.dfs(n, k, ans, [], 1)
-
-        return ans
-        # print(ans)
-
-    def dfs(self, n, k, ans, path, idx):
-        if len(path) == k:
-            ans.append(path)
-            return
-
-        for i in range(idx,n+1):
-            self.dfs(n, k, ans, path+[i], i+1)
+        return list(combinations(range(1,n+1), k))
 
 
 test = Solution
