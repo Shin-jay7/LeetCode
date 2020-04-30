@@ -4,40 +4,40 @@ from collections import Counter
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if not s or not t: return ""
-
         dict_t = Counter(t)
-        required = len(dict_t)
+        missing = len(t)
+        start, end, i = 0, 0, 0
 
-        filtered_s = []
-        for idx,char in enumerate(s):
-            if char in dict_t:
-                filtered_s.append((idx,char))
+        for j,char in enumerate(s,1):
+            """
+            Suppose we change to enumerate from 0, then we want to return
+            s[start, end+1]. If there's no matching substring (e.g. s = 'a',
+            t = 'ab'), 'start' and 'end' will not be changed and we are
+            returning s[0, 1] (i.e. 'a' instead of ''). This is incorrect.
+            An alternative way:
+            1) change end = 0 to end = -1,
+            2) enumerate from 0
+            3) change if end == 0 to end == -1
+            4) return s[start: end+1]
+            """
+            if dict_t[char] > 0:
+                missing -= 1
+            dict_t[char] -= 1
 
-        l, r, checked, window = 0, 0, 0, {}
-        ans = float("inf"), None, None
+            if not missing:
+                while i < j and dict_t[s[i]] < 0:
+                    dict_t[s[i]] += 1
+                    i += 1
+                dict_t[s[i]] += 1
+                missing += 1
 
-        while r < len(filtered_s):
-            char = filtered_s[r][1]
-            window[char] = window.get(char, 0) + 1
-            if window[char] == dict_t[char]:
-                checked += 1
+                if end == 0 or j-i < end-start:
+                    start, end = i, j
+                i += 1
 
-            while l <= r and checked == required:
-                char = filtered_s[l][1]
-                end = filtered_s[r][0]
-                start = filtered_s[l][0]
-                if end-start+1 < ans[0]:
-                    ans = (end-start+1, start, end)
-                window[char] -= 1
-                if window[char] < dict_t[char]:
-                    checked -= 1
-                l += 1
+        return s[start:end]
+        # print(s[start:end])
 
-            r += 1
-
-        return "" if ans[0] == float("inf") else s[ans[1]:ans[2]+1]
-        # print("" if ans[0] == float("inf") else s[ans[1]:ans[2]+1])
 
 
 test = Solution()
