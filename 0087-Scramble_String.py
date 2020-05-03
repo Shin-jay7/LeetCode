@@ -21,6 +21,7 @@ class Solution:
         for i in range(1, len(s1)):
             if f(s1[:i], s2[:i])  and f(s1[i:], s2[i:]) or\
                f(s1[:i], s2[-i:]) and f(s1[i:], s2[:-i]):
+                self.dic[(s1, s2)] = True
                 return True
 
         self.dic[(s1, s2)] = False
