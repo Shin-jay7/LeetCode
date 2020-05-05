@@ -10,7 +10,7 @@ class ListNode:
 class SinglyLinkedList:
     def __init__(self):
         self.head = None
-        self.newTailInReversed = None
+        self.tail = None
 
     def __iter__(self):
         node = linkedList.head
@@ -20,10 +20,10 @@ class SinglyLinkedList:
 
     def add(self, node):
         if self.head:
-            self.newTailInReversed.next = node
+            self.tail.next = node
         else:
             self.head = node
-        self.newTailInReversed = node
+        self.tail = node
 
 """
 Execution speed
