@@ -12,13 +12,13 @@ n=3
 
 n=20
                DP:  0.000062 seconds
-        Recursion:  0.000055 seconds
+        Recursion:  0.000058 seconds
    Catalan Number:  0.000004 seconds
 
 n=3
                DP:  0.000002 seconds
-        Recursion:  0.000005 seconds
-   Catalan Number:  0.000001 seconds
+        Recursion:  0.000009 seconds
+   Catalan Number:  0.000000 seconds
 """
 
 
@@ -62,8 +62,8 @@ class Solution:
         """
         https://en.wikipedia.org/wiki/Catalan_number
         """
-        return int((1/(n+1)) * math.comb(2*n,n))
-        # print(int((1/(n+1)) * math.comb(2*n,n)))
+        return math.comb(2*n,n)//(n+1)
+        # print(math.comb(2*n,n)//(n+1))
 
 solutions.append(("Catalan Number", Solution().numTrees))
 
