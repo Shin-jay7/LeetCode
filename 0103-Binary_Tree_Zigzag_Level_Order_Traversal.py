@@ -17,18 +17,20 @@ class Solution:
             curNodeVals, nextLevNodes = [], []
 
             for node in level:
-                curNodeVals.append(node.val)
+                if flag > 0:
+                    curNodeVals.append(node.val)
+                else:
+                    curNodeVals = [node.val] + curNodeVals
                 if node.left:
                     nextLevNodes.append(node.left)
                 if node.right:
                     nextLevNodes.append(node.right)
 
-            curNodeVals = curNodeVals[::flag]
             ans.append(curNodeVals)
             level = nextLevNodes
             flag *= -1
 
-        # return ans
+        return ans
         print(ans)
 
 
