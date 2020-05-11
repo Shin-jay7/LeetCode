@@ -71,23 +71,38 @@ https://leetcode.com/problems/validate-binary-search-tree/Figures/145_transverse
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int])\
                   -> TreeNode:
-        if not inorder or not postorder:
-            return None
 
-        root = TreeNode(postorder.pop())
-        idx = inorder.index(root.val)
-        root.right = self.buildTree(inorder[idx+1:], postorder)
-        root.left = self.buildTree(inorder[:idx], postorder)
         """
-        inorder traversal goes 'Left-Parent-Right' and
-        postorder traversal goes 'Left-Right-Parent'. And,
-        postorder.pop() keeps picking the right-most element
-        of the list, that means it should go 'Parent-(one of
-        parents of) Right (subtree) - Left'. So, switching the
-        order doesn't work.
+        The previous solution destroys the postorder list
+        unnecessarily. If I used that, I'd be surprised by the
+        behavior if I noticed the mutation and might wind up
+        with a difficult to track down bug.
+        Use an index instead of popping.
         """
 
-        return root
+        def helper(inorder, i_start, i_end, postorder, p_start,\
+                   p_end, dic):
+            if i_start > i_end or p_start > p_end:
+                return None
+
+            root = TreeNode(postorder[p_end])
+            idx = dic[root.val]
+            idx_delta = idx - i_start
+            root.left =\
+             helper(inorder, i_start, idx-1,\
+                    postorder, p_start, p_start+idx_delta-1, dic)
+            root.right =\
+             helper(inorder, idx+1, i_end,\
+                    postorder, p_start+idx_delta, p_end-1, dic)
+
+            return root
+
+        dic = {}
+        for i,n in enumerate(inorder):
+            dic[n] = i
+
+        return helper(inorder, 0, len(inorder)-1,\
+                      postorder, 0, len(postorder)-1, dic)
 
 
 class BstNode:
