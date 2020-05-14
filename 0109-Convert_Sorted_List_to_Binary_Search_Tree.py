@@ -80,28 +80,38 @@ class BstNode:
         for line in lines:
             print(line)
 
-
+"""
+Elements processed in the inorder fashion on a binary search
+tree turn out to be sorted in ascending order.
+"""
 class Solution:
     def sortedListToBST(self, head: ListNode) -> TreeNode:
-        if not head: return None
+        size = self.findSize(head)
 
         def convert(left, right):
+            nonlocal head
             if left > right: return None
 
             mid = (left+right) // 2
-            node = TreeNode(nums[mid])
-            node.left = convert(left, mid-1)
+
+            left = convert(left, mid-1)
+            node = TreeNode(head.val)
+            node.left = left
+            head = head.next
             node.right = convert(mid+1, right)
 
             return node
 
-        cnt, nums = 0, []
-        while head:
-            nums.append(head.val)
-            head = head.next
+        return convert(0, size-1)
+
+    def findSize(self, head):
+        ptr = head
+        cnt = 0
+        while ptr:
+            ptr = ptr.next
             cnt += 1
 
-        return convert(0, cnt-1)
+        return cnt
 
 
 test = Solution()
