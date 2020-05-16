@@ -7,25 +7,16 @@ class TreeNode:
         self.left = left
         self.right = right
 
+
 class Solution:
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
         if not root: return False
 
-        level = [(root, root.val)]
+        if not root.left and not root.right:
+            return root.val == sum
 
-        while level:
-            nextLevel = []
-            for node in level:
-                left, right = node[0].left, node[0].right
-                if left:
-                    nextLevel.append((left, node[1]+left.val))
-                if right:
-                    nextLevel.append((right, node[1]+right.val))
-                if not left and not right and node[1] == sum:
-                    return True
-            level = nextLevel
-
-        return False
+        return self.hasPathSum(root.left, sum-root.val) or\
+               self.hasPathSum(root.right, sum-root.val)
 
 
 test = Solution()
