@@ -6,9 +6,9 @@ class Solution:
         if numRows == 0: return []
         if numRows == 1: return [[1]]
 
-        ans = [[1], [1,1]]
+        ans = [[1]]
 
-        for i in range(2,numRows):
+        for i in range(1,numRows):
             level = []
             for j in range(i-1):
                 level.append(ans[i-1][j] + ans[i-1][j+1])
