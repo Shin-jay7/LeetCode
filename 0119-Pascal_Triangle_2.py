@@ -3,18 +3,12 @@ from __future__ import annotations
 
 class Solution:
     def getRow(self, rowIndex: int) -> List[int]:
-        if rowIndex == 0: return [1]
+        row = [1]
 
-        ans = [[]]
+        for _ in range(rowIndex):
+            row = [x+y for x,y in zip([0]+row, row+[0])]
 
-        for i in range(1,rowIndex+1):
-            level = []
-            for j in range(i-1):
-                level.append(ans[i-1][j] + ans[i-1][j+1])
-            ans.append([1] + level + [1])
-
-        return ans[-1]
-        # print(ans[-1])
+        return row
 
 
 test = Solution()
