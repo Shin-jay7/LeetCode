@@ -3,26 +3,17 @@ from __future__ import annotations
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        if not prices: return 0
+        buyFirst, sellFirst,  = -float('inf'), 0
+        buySecond, sellSecond = -float('inf'), 0
 
-        profits, curMaxProfit, curMinPrice = [], 0, float('inf')
-
-        # Calculate max profit by the ith day
         for price in prices:
-            curMinPrice = min(curMinPrice, price)
-            curMaxProfit = max(curMaxProfit, price-curMinPrice)
-            profits.append(curMaxProfit)
+            buyFirst = max(buyFirst, -price)
+            sellFirst = max(sellFirst, buyFirst+price)
+            buySecond = max(buySecond, sellFirst-price)
+            sellSecond = max(sellSecond, buySecond+price)
 
-        total, curMaxProfit, curMaxPrice = 0, 0, 0
-
-        # Calculate max profit after the ith day
-        for i in range(len(prices)-1, -1, -1):
-            curMaxPrice = max(curMaxPrice, prices[i])
-            curMaxProfit = max(curMaxProfit, curMaxPrice-prices[i])
-            total = max(total, curMaxProfit+profits[i])
-
-        return total
-        # print(total)
+        return max(0, sellSecond)
+        # print(max(0, sellSecond))
 
 
 test = Solution()
@@ -36,3 +27,6 @@ test.maxProfit([7,6,4,3,1]) # 0
 
 test = Solution()
 test.maxProfit([6,1,3,2,4,7]) # 7
+
+test = Solution()
+test.maxProfit([]) # 0
