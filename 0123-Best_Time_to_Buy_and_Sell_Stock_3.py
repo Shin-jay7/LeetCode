@@ -3,32 +3,26 @@ from __future__ import annotations
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        minPrice = float('inf')
-        accProfit, totalProfit, cnt = 0, [], 0
+        if not prices: return 0
 
-        def calcProfit(prices, minPrice, accProfit, cnt):
-            for idx,price in enumerate(prices):
-                minPrice = min(minPrice, price)
-                profit = price - minPrice
-                if profit:
-                    if cnt == 0:
-                        calcProfit(prices[idx+1:], minPrice, 0, 0)
-                        accProfit += profit
-                        cnt += 1
-                        minPrice = float('inf')
-                    else:
-                        calcProfit(prices[idx+1:], minPrice, accProfit, 1)
-                        accProfit += profit
-                        cnt = 0
-                        minPrice = float('inf')
-                        totalProfit.append(accProfit)
-                        accProfit = 0
-            totalProfit.append(accProfit)
+        profits, curMaxProfit, curMinPrice = [], 0, float('inf')
 
-        calcProfit(prices, minPrice, accProfit, cnt)
+        # Calculate max profit by the ith day
+        for price in prices:
+            curMinPrice = min(curMinPrice, price)
+            curMaxProfit = max(curMaxProfit, price-curMinPrice)
+            profits.append(curMaxProfit)
 
-        return max(totalProfit) if totalProfit else 0
-        # print(max(totalProfit) if totalProfit else 0)
+        total, curMaxProfit, curMaxPrice = 0, 0, 0
+
+        # Calculate max profit after the ith day
+        for i in range(len(prices)-1, -1, -1):
+            curMaxPrice = max(curMaxPrice, prices[i])
+            curMaxProfit = max(curMaxProfit, curMaxPrice-prices[i])
+            total = max(total, curMaxProfit+profits[i])
+
+        return total
+        # print(total)
 
 
 test = Solution()
