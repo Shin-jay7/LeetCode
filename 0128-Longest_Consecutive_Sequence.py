@@ -3,21 +3,17 @@ from __future__ import annotations
 
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        if not nums: return 0
+        # set() takes O(n) time
+        nums, max_ = set(nums), 0
 
-        nums.sort()
-        cnt, max_ = 1, 0
+        for n in nums:
+            if n-1 not in nums:
+                consec = n+1
+                while consec in nums:
+                    consec += 1
+                max_ = max(max_, consec-n)
 
-        for i in range(1,len(nums)):
-            if nums[i] == nums[i-1]+1:
-                cnt += 1
-            elif nums[i] == nums[i-1]:
-                continue
-            else:
-                max_ = max(max_, cnt)
-                cnt = 1
-
-        return max(max_, cnt)
+        return max_
 
 
 test = Solution()
