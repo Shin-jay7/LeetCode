@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 
+# Reference: https://www.youtube.com/watch?v=lDYIvtBVmgo
 class Solution:
     def minCut(self, s: str) -> int:
         n = len(s)
