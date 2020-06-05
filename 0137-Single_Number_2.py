@@ -3,7 +3,7 @@ from __future__ import annotations
 
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        return (3*sum(set(nums)) - sum(nums))//2
+        return (3*sum(set(nums)) - sum(nums)) // 2
 
 
 class Solution:
