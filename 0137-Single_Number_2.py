@@ -13,11 +13,8 @@ class Solution:
         for i in range(2,len(nums),3):
             if not (nums[i] == nums[i-1] and nums[i] == nums[i-2]):
                 return nums[i-2]
-                # print(nums[i-2])
-                # return
 
         return nums[-1]
-        # print(nums[-1])
 
 
 test = Solution()
