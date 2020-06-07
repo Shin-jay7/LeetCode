@@ -12,7 +12,20 @@ class Solution:
     def copyRandomList(self, head: 'Node') -> 'Node':
         if not head: return
 
-        # copy nodes
+        """
+        [copy nodes]
+
+         (val, idx where random points to)
+
+         Original head before this operation:
+            (7, None) -> (13, 0) -> (11, 4) -> (10, 2) -> (1, 0)
+         Modified head after this operation:
+            (7, None) -> *(7, None) ->
+            (13, 0) -> *(13, None) ->
+            (11, 4) -> *(11, None) ->
+            (10, 2) -> *(10, None) ->
+            (1, 0) -> *(1, None)
+        """
         node = head
         while node:
             copy = node.next
@@ -20,24 +33,49 @@ class Solution:
             node.next.next = copy
             node = copy
 
-        # copy random pointers
+        """
+        [copy random pointers]
+         Original head before this operation:
+            (7, None) -> *(7, None) ->
+            (13, 0) -> *(13, None) ->
+            (11, 4) -> *(11, None) ->
+            (10, 2) -> *(10, None) ->
+            (1, 0) -> *(1, None)
+         Modified head after this operation:
+            (7, None) -> *(7, None) ->
+            (13, 0) -> *(13, 0) ->
+            (11, 4) -> *(11, 4) ->
+            (10, 2) -> *(10, 2) ->
+            (1, 0) -> *(1, 0)
+        """
         node = head
         while node:
             if node.random:
                 node.next.random = node.random.next
             node = node.next.next
 
-        # separate two parts
-        second = node = head.next
+        """
+        [separate two partss]
+         Original head before this operation:
+            (7, None) -> *(7, None) ->
+            (13, 0) -> *(13, 0) ->
+            (11, 4) -> *(11, 4) ->
+            (10, 2) -> *(10, 2) ->
+            (1, 0) -> *(1, 0)
+         ans after this operation:
+            *(7, None) -> *(13, 0) -> *(11, 4) -> *(10, 2) -> *(1, 0)
+        """
+        ans = node = head.next
         while node.next:
             head.next = node.next
             head = head.next
             node.next = head.next
             node = node.next
 
-        head.next = None
+        # You can pass test cases without this
+        # head.next = None
 
-        return second
+        return ans
 
 
 class Solution:
@@ -228,5 +266,5 @@ class Solution:
             node.random.next = node.next and node.next.random
             node.random = node.random.next
 
-        # return headCopy
-        print(headCopy)
+        return headCopy
+        # print(headCopy)
