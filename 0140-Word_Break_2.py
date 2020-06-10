@@ -5,7 +5,12 @@ class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
         ans = []
         n = len(s)
-        dp = self.check(s, wordDict, n)
+
+        dp = [True] + [False] * n
+        for i in range(1, n+1):
+            for word in wordDict:
+                if s[:i].endswith(word):
+                    dp[i] |= dp[i-len(word)]
 
         self.dfs(s, n, dp, 0, wordDict, '', ans)
 
@@ -19,16 +24,6 @@ class Solution:
             for i in range(1, n+1):
                 if s[:i] in dic:
                     self.dfs(s[i:], len(s[i:]), dp, idx+i, dic, path+s[:i]+" ", ans)
-
-    def check(self, s, dic, n):
-        dp = [True] + [False] * n
-
-        for i in range(1, n+1):
-            for word in dic:
-                if s[:i].endswith(word):
-                    dp[i] |= dp[i-len(word)]
-
-        return dp
 
 
 test = Solution()
