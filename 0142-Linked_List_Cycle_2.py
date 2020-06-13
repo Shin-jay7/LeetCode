@@ -15,10 +15,7 @@ class Solution:
             fast = fast.next.next
             slow = slow.next
             if slow == fast:
-                while head:
-                    if head == slow:
-                        return head
+                while head != slow:
                     head = head.next
                     slow = slow.next
-
-        return None
+                return head
