@@ -7,6 +7,11 @@ class ListNode:
         self.next = next
 
 
+"""
+Need to understand that the right hand side will be
+evaluated first before the assignment, and the left hand side
+will be assigned values one by one, from left to right.
+"""
 class Solution:
     def reorderList(self, head: ListNode) -> None:
         if not head: return
