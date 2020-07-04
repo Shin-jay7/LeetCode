@@ -5,23 +5,12 @@ class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         if not nums: return 0
 
-        n = len(nums)
-        l, r = 0, 1
-        subMax, totalMax = nums[0], nums[0]
+        revNums = nums[::-1]
+        for i in range(1, len(nums)):
+            nums[i] *= nums[i-1] or 1 # 1 required in case nums[i-1] == 0
+            revNums[i] *= revNums[i-1] or 1
 
-        while l < n-1 and r < n:
-            acc = nums[l]
-            while r < n:
-                acc *= nums[r]
-                subMax = max(subMax, acc)
-                r += 1
-            l += 1
-            r = l+1
-            totalMax = max(totalMax, subMax)
-            subMax = nums[l]
-
-        return max(totalMax, subMax)
-        # print(max(totalMax, subMax))
+        return max(nums+revNums)
 
 
 test = Solution()
