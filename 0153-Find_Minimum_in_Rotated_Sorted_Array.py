@@ -15,8 +15,6 @@ class Solution:
             mid = (lo+hi+1)//2
             if nums[mid-1] > nums[mid]:
                 return nums[mid]
-                # print(nums[mid])
-                # return
             elif nums[mid] > nums[0]:
                 lo = mid+1
             else:
