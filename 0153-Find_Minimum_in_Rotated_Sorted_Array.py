@@ -7,28 +7,30 @@ class Solution:
 
         if not nums: return None
         if n == 1: return nums[0]
+        if nums[-1] > nums[0]: return nums[0]
 
-        i = 0
-        while i < n-1:
-            if nums[i-1] > nums[i] and nums[i+1] > nums[i]:
-                return nums[i]
-                # print(nums[i])
+        lo, hi = 0, n-1
+
+        while lo <= hi:
+            mid = (lo+hi+1)//2
+            if nums[mid-1] > nums[mid]:
+                return nums[mid]
+                # print(nums[mid])
                 # return
-            i += 1
+            elif nums[mid] > nums[0]:
+                lo = mid+1
+            else:
+                hi = mid-1
 
-        return nums[-1]
-        # print(nums[-1])
-        # return
-
-
-test = Solution()
-test.findMin([1] ) # 1
 
 test = Solution()
-test.findMin([2,1] ) # 1
+test.findMin([1]) # 1
 
 test = Solution()
-test.findMin([3,4,5,1,2] ) # 1
+test.findMin([2,1]) # 1
+
+test = Solution()
+test.findMin([3,4,5,1,2]) # 1
 
 test = Solution()
 test.findMin([4,5,6,7,0,1,2]) # 0
