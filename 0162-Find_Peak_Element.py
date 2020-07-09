@@ -6,17 +6,8 @@ class Solution:
         n = len(nums)
 
         if n == 0 or n == 1: return 0
-
-        if n == 2:
-            if nums[1] > nums[0]:
-                return 1
-            else:
-                return 0
-
-        if n > 2:
-            if nums[0] > nums[1]:
-                return 0
-
+        if nums[0] > nums[1]:
+            return 0
         if nums[-1] > nums[-2]:
             return n-1
 
