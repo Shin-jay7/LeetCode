@@ -7,9 +7,8 @@ class Solution:
         ans = ""
 
         while n:
-            n, m = divmod(n, 26)
-            ans = alphabet[m-1] + ans
-            if m == 0: n -= 1
+            n, m = divmod(n-1, 26)
+            ans = alphabet[m] + ans
 
         return ans
         # print(ans)
