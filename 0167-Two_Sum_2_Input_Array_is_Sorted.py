@@ -5,7 +5,7 @@ class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         l, r = 0, len(numbers)-1
 
-        while l <= r:
+        while l < r:
             sum_ = numbers[l]+numbers[r]
             if sum_ == target:
                 return [l+1, r+1]
@@ -15,6 +15,17 @@ class Solution:
                 l += 1
             else:
                 r -= 1
+
+        return []
+
+
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        dic = {}
+        for i, num in enumerate(numbers):
+            if target-num in dic:
+                return [dic[target-num]+1, i+1]
+            dic[num] = i
 
         return []
 
