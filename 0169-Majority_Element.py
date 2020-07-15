@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from collections import Counter
+
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        cnts = Counter(nums)
-        return max(cnts.keys(), key=cnts.get)
+        nums.sort()
+        return nums[len(nums)//2]
 
 
 test = Solution()
