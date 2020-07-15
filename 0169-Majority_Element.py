@@ -1,19 +1,10 @@
 from __future__ import annotations
 
-
+from collections import Counter
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        cnt, half = {}, len(nums)//2
-
-        for n in nums:
-            if n in cnt:
-                cnt[n] += 1
-            else:
-                cnt[n] = 1
-            if cnt[n] > half:
-                return n
-                # print(n)
-                # return
+        cnts = Counter(nums)
+        return max(cnts.keys(), key=cnts.get)
 
 
 test = Solution()
