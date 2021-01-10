@@ -28,7 +28,7 @@ class Solution:
             return 0
         if memo[i] >= 0:
             return memo[i]
-        result = max(_rob(nums, i-2, memo)+nums[i], _rob(nums, i-1, memo))
+        result = max(self._rob(nums, i-2, memo)+nums[i], self._rob(nums, i-1, memo))
         memo[i] = result
         return result
 
