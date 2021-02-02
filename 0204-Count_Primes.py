@@ -13,6 +13,12 @@ class Solution:
             if primes[i] == 1:
                 primes[i*i:n:i] = [0] * len(primes[i*i:n:i])
 
-        return sum(primes) 
+        # i = 2
+        # primes[i*i:n:i] = [0] * len(primes[i*i:n:i])
 
-        
+        return sum(primes)
+        # print(primes)
+
+
+test = Solution()
+test.countPrimes(30)     
