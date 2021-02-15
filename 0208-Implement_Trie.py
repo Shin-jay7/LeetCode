@@ -11,7 +11,9 @@ class Trie:
             if w not in t:
                 t[w] = {}
             t = t[w]
+            print(self.trie)
         t['#'] = '#'
+        print(self.trie)
 
     def search(self, word: str) -> bool:
         t = self.trie
