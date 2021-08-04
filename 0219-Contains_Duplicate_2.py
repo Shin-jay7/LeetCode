@@ -2,17 +2,12 @@ from __future__ import annotations
 
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        length = len(nums)
-
-        for i in range(length-1):
-            end = i+k if length > i+k else length-1
-            for j in range(end, i, -1):
-                if nums[i] == nums[j]:
-                    return True
-                    # print(True)
-                    # return
+        dic = {}
+        for i, v in enumerate(nums):
+            if v in dic and i - dic[v] <= k:
+                return True
+            dic[v] = i
         return False
-        # print(False)
 
 
 test = Solution()
