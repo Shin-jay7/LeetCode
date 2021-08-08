@@ -1,15 +1,13 @@
 from __future__ import annotations
+from collections import Counter
 
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> List[int]:
-        cnt, ans = {}, []
+        cnt, ans = Counter(), []
 
         for n in nums:
-            if n in cnt:
-                cnt[n] += 1
-            else:
-                cnt[n] = 1
+            cnt[n] += 1
 
         for n in cnt:
             if cnt[n] > len(nums)//3:
