@@ -3,16 +3,10 @@ from __future__ import annotations
 
 class Solution:
     def addDigits(self, num: int) -> int:
-
-        while num >= 10:
-            tmp = 0
-            for n in list(str(num)):
-                tmp += int(n)
-            num = tmp
-
-        return num
-        # print(num)
-        # return
+        return 0 if num == 0 else (num-1) % 9 + 1
+        # Then numbers n and sum(n) (where by sum(n) we denote 
+        # sum of digits of number n) have the same remainder 
+        # if we divide them by 9
 
 
 test = Solution()
