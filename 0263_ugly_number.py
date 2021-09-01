@@ -3,7 +3,7 @@ from __future__ import annotations
 
 class Solution:
     def isUgly(self, n: int) -> bool:
-        for p in 5, 3, 2:
+        for p in [10, 8, 6, 5, 4, 3, 2]:
             while n % p == 0:
                 n //= p
 
