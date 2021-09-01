@@ -3,12 +3,25 @@ from __future__ import annotations
 
 class Solution:
     def isUgly(self, n: int) -> bool:
-        for p in [10, 8, 6, 5, 4, 3, 2]:
-            while n % p == 0:
-                n //= p
+        if n <= 0:
+            return False
 
-        return n == 1
-        # print(n == 1)
+        prev = n
+
+        while n != 1:
+            if n % 2 == 0:
+                n //= 2
+            if n % 3 == 0:
+                n //= 3
+            if n % 5 == 0:
+                n //= 5
+
+            if n == prev:
+                return False
+            else:
+                prev = n
+        
+        return True
 
 
 test = Solution()
