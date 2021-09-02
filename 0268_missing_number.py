@@ -1,9 +1,8 @@
 from __future__ import annotations
+from typing import List
 
 
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        for i in range(len(nums)+1):
-            if i not in nums:
-                return i
-                
+        n = len(nums)
+        return n * (n+1) // 2 - sum(nums)
