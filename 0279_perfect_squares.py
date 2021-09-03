@@ -4,18 +4,19 @@ from math import sqrt
 
 class Solution:
     def numSquares(self, n: int) -> int:
-        if int(sqrt(n))**2 == n:
-            return 1
+        dp = [0]
 
-        for i in range(int(sqrt(n)) + 1):
-            if int(sqrt(n - i*i))**2 == n - i*i:
-                return 2
+        while len(dp) <= n:
+            x, y = len(dp), float('inf')
+            for i in range(1, int(sqrt(x))+1):
+                idx = x - i*i
+                if dp[idx] + 1 < y:
+                    y = dp[idx] + 1
+            dp.append(y)
+            # print(dp)
 
-        while n % 4 == 0:
-            n //= 4
-        if n % 8 == 7:
-            return 4
+        return dp[n]
 
-        return 3
 
-# https://leetcode.com/problems/perfect-squares/discuss/707526/Python-Fastest-O(sqrt(n))-solution-with-math-explanied.
+test = Solution()
+test.numSquares(13) # 2
