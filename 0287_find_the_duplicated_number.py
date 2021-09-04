@@ -23,7 +23,9 @@ class Solution:
                 break
 
         slow = nums[0]
-        print("Second loop")
+        # print("Prepare for the second loop")
+        # print(slow, fast)
+        # print("Second loop")
         while slow != fast:
             slow, fast = nums[slow], nums[fast]
             # print(slow, fast)
