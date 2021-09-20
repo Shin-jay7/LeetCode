@@ -1,17 +1,21 @@
 from __future__ import annotations
+from heapq import heappush, heappushpop
 
 
 class MedianFinder:
     def __init__(self) -> None:
-        self.arr = []
+        self.heaps = [], []
 
     def addNum(self, num: int) -> None:
-        self.arr.append(num)
+        small, large = self.heaps
+        if len(small) == len(large):
+            heappush(large, -heappushpop(small, -num))
+        else:
+            heappush(small, -heappushpop(large, num))
 
     def findMedian(self) -> float:
-        arr = sorted(self.arr)
-        length = len(arr)
-        if length % 2:
-            return arr[length // 2] / 1.0
+        small, large = self.heaps
+        if len(small) == len(large):
+            return (large[0] - small[0]) / 2
         else:
-            return (arr[length // 2 - 1] + arr[length // 2])/2
+            return float(large[0])
