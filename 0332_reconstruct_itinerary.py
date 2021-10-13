@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import List
 from collections import defaultdict
 
-
+# http://www.graph-magics.com/articles/euler.php
 class Solution:
     def dfs(self, airport: str) -> None:
         while self.adj_list[airport]:
