@@ -3,9 +3,9 @@ from __future__ import annotations
 
 class Solution:
     def countNumbersWithUniqueDigits(self, n: int) -> int:
-        cnt = 0
-        for i in range(int("1" + "0"*n)):
-            if len(str(i)) == len(set(str(i))):
-                cnt += 1
+        ans, prev = 10, 9
+        for i in range(1, n):
+            prev *= 10-i # ユニークにするには同じ数字を2回使えないので選択肢が減る
+            ans += prev
 
-        return cnt
+        return n and ans or 1
