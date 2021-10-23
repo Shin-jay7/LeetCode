@@ -1,14 +1,21 @@
 from __future__ import annotations
+import bisect
 
 
 class Solution:
     def guessNumber(self, n: int) -> int:
-        pick = (n+1) // 2
-        while 0 < pick < n+1:
-            res = guess(pick)
-            if res == 0:
-                return pick
-            elif res == -1:
-                pick -= 1
+        class C: __getitem__ = lambda _, i: -guess(i)
+        return bisect.bisect(C(), -1, 1, n)
+
+
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        lo, hi = 1, n
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if guess(mid) == 1:
+                lo = mid + 1
             else:
-                pick += 1
+                hi = mid
+
+        return lo
