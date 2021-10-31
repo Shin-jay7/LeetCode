@@ -4,22 +4,23 @@ from random import choice
 
 class RandomizedSet:
     def __init__(self):
-        self.nums_dic = {}
         self.nums = []
-
+        self.idxs = {}
+        
     def insert(self, val: int) -> bool:
         # checking if item is in the
         # dictionary is on average O(1) where as
         # checking the list is on average O(n)
-        if val in self.nums_dic:
+        if val in self.idxs:
             return False
         # len is equal to the index of the last item + 1,
         # which points to the index of a new element
-        self.nums_dic[val] = len(self.nums)
+        self.idxs[val] = len(self.nums)
         self.nums.append(val)
+        return True
 
     def remove(self, val: int) -> bool:
-        if val not in self.nums_dic:
+        if val not in self.idxs:
             return False
         """
         move the last num in the list into the location of the nums we want to
@@ -28,12 +29,12 @@ class RandomizedSet:
         item in the dicitionary to match their new position in the list
         """
         last_num_in_list = self.nums[-1]
-        idx_of_num_to_remove = self.nums_dic[val]
-        self.nums_dic[last_num_in_list] = idx_of_num_to_remove
+        idx_of_num_to_remove = self.idxs[val]
+        self.idxs[last_num_in_list] = idx_of_num_to_remove
         self.nums[idx_of_num_to_remove] = last_num_in_list
         self.nums[-1] = val
         self.nums.pop()
-        self.nums_dic.pop(val)
+        self.idxs.pop(val)
         return True
 
     def getRandom(self) -> int:
