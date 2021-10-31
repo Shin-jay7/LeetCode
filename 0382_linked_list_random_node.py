@@ -26,7 +26,7 @@ class Solution:
         self.head = head
 
     def getRandom(self) -> int:
-        # nodes is number of nodes we count in list so far
+        # nodes are number of nodes we count in list so far
         # and cur is current node we are in.
         nodes, cur = 1, 1
         head, ans = self.head, self.head
