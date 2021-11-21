@@ -10,3 +10,12 @@ class Solution:
                 return t[idx]
 
         return t[-1]
+
+
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        unicode = 0
+        for ch in s+t:
+            unicode ^= ord(ch)
+        return chr(unicode)
+        
