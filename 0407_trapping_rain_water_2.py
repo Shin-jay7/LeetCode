@@ -23,7 +23,8 @@ class Solution:
         level, ans = 0, 0
 
         while heap:
-            height, x, y = heappop(heap)
+            # Notice heappop pops the lowest height
+            height, x, y = heappop(heap) 
             level = max(height, level)
             for i, j in [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]:
                 if 0 <= i < m and 0 <= j < n and heightMap[i][j] != -1:
