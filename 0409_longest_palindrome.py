@@ -4,10 +4,12 @@ from collections import Counter
 
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        odd, even = False, 0
-        for val in Counter(s).values():
-            if val % 2:
-                odd = True
-            even += (val // 2) * 2
+        odds = sum(val % 2 for val in Counter(s).values())
+        # 奇数の文字が何種類あるか数える
+        return len(s) - odds + bool(odds)
+        # 奇数の文字の種類を差し引くと、偶数の文字 & 奇数の文字の偶数分が残る
+        # bool(odds)はoddsが1以上なら1を返す
 
-        return even + 1 if odd else even
+
+test = Solution()
+test.longestPalindrome("aabbcccddd")
