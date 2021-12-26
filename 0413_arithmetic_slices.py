@@ -1,27 +1,25 @@
 from __future__ import annotations
 from typing import List
+import pandas as pd
 
 
 class Solution:
     def numberOfArithmeticSlices(self, nums: List[int]) -> int:
         length = len(nums)
-        if length < 3:
-            return 0
-
-        diff, cnt, arith = nums[1] - nums[0], 1, []
+        dp, dpPrev, ans = 0, 0, 0
         for i in range(2, length):
-            if diff == nums[i] - nums[i-1]:
-                cnt += 1
-            else:
-                if cnt > 1:
-                    arith.append(cnt)
-                cnt, diff = 1, nums[i] - nums[i-1]
-        if cnt > 1:
-            arith.append(cnt)
+            if nums[i-1] - nums[i-2] == nums[i] - nums[i-1]:
+                dp = dpPrev + 1
+            ans += dp
+            dpPrev, dp = dp, 0
 
-        # Sum of 1...n: 1/2 * n * (n+1)
-        # print(sum((a-1) * a // 2 for a in arith))
-        return sum((a-1) * a // 2 for a in arith)
+        return ans
+
+
+class Solution:
+    def numberOfArithmeticSlices(self, nums: List[int]) -> int:
+        # := は式の途中結果を紐づけることができる
+        return sum((k := sum(1 for _ in g))*(k-1)//2 for _,g in pd.groupby(nums[i+1]-nums[i] for i in range(len(nums)-1)))
 
 
 test = Solution()
