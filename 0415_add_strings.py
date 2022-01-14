@@ -7,14 +7,14 @@ class Solution:
         digits, ans = 1, 0
         while num1 or num2:
             if num1 and num2:
-                ans += int(num1.pop())*digits + int(num2.pop())*digits
+                ans += (ord(num1.pop()) - ord("0"))*digits + (ord(num2.pop()) - ord("0"))*digits
             elif num1:
-                ans += int(num1.pop())*digits
+                ans += (ord(num1.pop()) - ord("0"))*digits
             else:
-                ans += int(num2.pop())*digits
+                ans += (ord(num2.pop()) - ord("0"))*digits
             digits *= 10
 
-        # print(str(ans))
+        print(str(ans))
         return str(ans)
 
 
