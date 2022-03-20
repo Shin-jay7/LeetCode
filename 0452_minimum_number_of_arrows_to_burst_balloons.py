@@ -4,19 +4,11 @@ from typing import List
 
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
-        points = sorted(points)
-        dup = [points[0][0], points[0][1]]
-        arrow = 0
-        for i in range(1, len(points)):
-            if points[i][0] <= dup[1]:
-                if points[i][1] < dup[1]:
-                    dup = [points[i][0], points[i][1]]
-                else:
-                    dup = [points[i][0], dup[1]]
-            else:
+        arrow, shoot = 0, float('inf')
+        for start, end in sorted(points, reverse=True):
+            if shoot > end:
+                shoot = start
                 arrow += 1
-                dup = [points[i][0], points[i][1]]
-        arrow += 1
 
         return arrow
 
