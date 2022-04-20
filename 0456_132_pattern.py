@@ -5,10 +5,23 @@ from itertools import combinations
 
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
-        for pair in combinations(nums, 3):
-            if pair[0] < pair[2] < pair[1]:
+        stack, third_n = [], float('-inf')
+        for n in nums[::-1]:
+            if n < third_n:
                 return True
+            while stack and stack[-1] < n:
+                third_n = stack.pop()
+            stack.append(n)
+
         return False
+
+
+# class Solution:
+#     def find132pattern(self, nums: List[int]) -> bool:
+#         for pair in combinations(nums, 3):
+#             if pair[0] < pair[2] < pair[1]:
+#                 return True
+#         return False
 
 
 test = Solution()
