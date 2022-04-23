@@ -34,6 +34,6 @@ class Solution:
         # if there's an odd number of turns
         if summed_choices == desiredTotal:
             return maxChoosableInteger % 2
-        # time to go through the tree of permutations
+        # go through the tree of permutations
         choices = list(range(1, maxChoosableInteger + 1))
         return can_win(choices, desiredTotal)
