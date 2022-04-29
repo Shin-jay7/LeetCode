@@ -3,6 +3,7 @@ from functools import lru_cache
 from typing import List
 
 
+# https://qiita.com/drken/items/7c6ff2aa4d8fce1c9361
 # https://leetcode.com/discuss/general-discussion/1125779/Dynamic-programming-on-subsets-with-examples-explained
 class Solution:
     def makesquare(self, matchsticks: List[int]) -> bool:
