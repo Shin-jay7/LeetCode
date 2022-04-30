@@ -1,13 +1,15 @@
 from __future__ import annotations
 from typing import List
-from itertools import combinations
 
 
 class Solution:
     def totalHammingDistance(self, nums: List[int]) -> int:
         ans = 0
-        for pair in combinations(nums, 2):
-            dis = pair[0] ^ pair[1]
-            ans += bin(dis)[2:].count('1')
+        for i in range(32):
+            ones = zeros = 0
+            for n in nums:
+                ones += (n >> i) & 1
+                zeros += not (n >> i) & 1
+            ans += ones * zeros
 
         return ans
