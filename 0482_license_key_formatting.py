@@ -3,14 +3,8 @@ from __future__ import annotations
 
 class Solution:
     def licenseKeyFormatting(self, s: str, k: int) -> str:
-        s = s.replace("-", "")
-        q, r = divmod(len(s), k)
-        ans = s[:r].upper() if r else ""
-        for _ in range(q):
-            ans += "-" if ans else ""
-            ans += s[r:r+k].upper()
-            r += k
-        return ans
+        s = s.replace("-", "").upper()[::-1]
+        return '-'.join(s[i:i+k] for i in range(0, len(s), k)[::-1])
 
 
 test = Solution()
