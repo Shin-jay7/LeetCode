@@ -25,7 +25,6 @@ class Solution:
 # the array left are nums[i]..nums[j] inclusively.
 class Solution:
     def PredictTheWinner(self, nums: List[int]) -> bool:
-        # d[i][j]  Effective score to pick when facing nums[i...j]
         n = len(nums)
         dp = [[0] * n for _ in range(n)]
         for s in range(n):
@@ -34,7 +33,7 @@ class Solution:
                 if i == j:
                     dp[i][j] = nums[i]
                 else:
-                    dp[i][j] = max(nums[j] - dp[i][j-1], nums[i] - dp[i+1][j])
+                    dp[i][j] = max(nums[i] - dp[i+1][j], nums[j] - dp[i][j-1])
 
         return dp[0][-1] >= 0
 
