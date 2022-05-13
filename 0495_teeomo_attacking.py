@@ -13,3 +13,14 @@ class Solution:
             end = t + duration
 
         return _sum
+
+
+class Solution:
+    def findPoisonedDuration(slef, timeSeries: List[int], duration: int) -> int:
+        return sum(
+             [
+                 min(duration, nxt - cur)
+                 for cur, nxt in zip(timeSeries, timeSeries[1:])
+             ]
+             + [duration]
+            )
