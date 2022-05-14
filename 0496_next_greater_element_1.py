@@ -6,23 +6,14 @@ class Solution:
     def nextGreaterElement(
         self, nums1: List[int], nums2: List[int]
        ) -> List[int]:
+        nges, stack = {}, []
+        for num in nums2:
+            while stack and stack[-1] < num:
+                prev = stack.pop()
+                nges[prev] = num
+            stack.append(num)
 
-        nges, n = [], len(nums2)
-        for cur in range(n):
-            nxt = cur
-            while nxt < n:
-                if nums2[nxt] > nums2[cur]:
-                    nges.append(nums2[nxt])
-                    break
-                nxt += 1
-            else:
-                nges.append(-1)
-            
-        ans = []
-        for num in nums1:
-            ans.append(nges[nums2.index(num)])
-
-        return ans
+        return [nges.get(num, -1) for num in nums1]
 
 
 test = Solution()
