@@ -4,15 +4,10 @@ from typing import List
 
 class Solution:
     def findRelativeRanks(self, score: List[int]) -> List[str]:
-        rank = {0: "Gold Medal", 1: "Silver Medal", 2: "Bronze Medal"}
-        for i in range(3, len(score)):
-            rank[i] = str(i+1)
         place = sorted(score)[::-1]
-        ans = []
-        for v in score:
-            ans.append(rank[place.index(v)])
-
-        return ans
+        rank = ["Gold Medal", "Silver Medal", "Bronze Medal"]\
+            + list(map(str, range(4, len(score)+1)))
+        return list(map(dict(zip(place, rank)).get, score))
 
 
 test = Solution()
