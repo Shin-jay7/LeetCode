@@ -3,8 +3,4 @@ from __future__ import annotations
 
 class Solution:
     def detectCapitalUse(self, word: str) -> bool:
-        if word == word.upper() or\
-           word == word.lower() or\
-           word == word.capitalize():
-            return True
-        return False
+        return word.isupper() or word.islower() or word.istitle()
