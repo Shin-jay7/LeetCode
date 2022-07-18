@@ -1,8 +1,18 @@
 from __future__ import annotations
 from typing import List
 from itertools import combinations
+from collections import Counter
 
 
+class Solution:
+    def findPairs(self, nums: List[int], k: int) -> int:
+        ctr = Counter(nums)
+        return sum(
+             k > 0 and i + k in ctr or k == 0 and ctr[i] > 1 for i in ctr
+            )
+
+
+# Time limit exceeded
 class Solution:
     def findPairs(self, nums: List[int], k: int) -> int:
         ans = set()
