@@ -3,9 +3,7 @@ from __future__ import annotations
 
 class Solution:
     def complexNumberMultiply(self, num1: str, num2: str):
-        n1 = num1.split("+")
-        n2 = num2.split("+")
-        real = str((int(n1[0]) * int(n2[0])) - (int(n1[1][:-1]) * int(n2[1][:-1])))
-        imaginary = str(int(n1[0]) * int(n2[1][:-1]) + int(n1[1][:-1]) * int(n2[0])) + "i"
+        a, b = map(int, num1[:-1].split("+"))
+        c, d = map(int, num2[:-1].split("+"))
 
-        return real + "+" + imaginary
+        return f'{a * c - b * d}+{a * d + b * c}i'
