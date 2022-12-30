@@ -17,6 +17,22 @@ class Solution:
         return ans
 
 
+class Solution:
+    def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:
+        dic1 = {word: i for i, word in enumerate(list1)}
+        dic2 = {word: dic1[word]+idx for idx, word in enumerate(list2)
+                if word in dic1}
+        ans, _sum = [], float('inf')
+        for key, val in dic2.items():
+            if val < _sum:
+                ans = [key]
+                _sum = val
+            elif val == _sum:
+                ans.append(key)
+
+        return ans
+
+
 test = Solution()  # ["Shogun"]
 test.findRestaurant(
      ["Shogun", "Tapioca Express", "Burger King", "KFC"],
