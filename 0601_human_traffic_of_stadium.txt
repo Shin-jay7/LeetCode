@@ -1,0 +1,18 @@
+WITH cte AS (
+SELECT id
+    , visit_date
+    , people
+    , LEAD(people, 1) OVER w nxt
+    , LEAD(people, 2) OVER w nxt2
+    , LAG(people, 1) OVER w pre
+    , LAG(people, 2) OVER w pre2
+FROM Stadium
+WINDOW w AS (ORDER BY id)
+)
+SELECT id
+    , visit_date
+    , people
+FROM cte
+WHERE (cte.people >= 100 AND cte.nxt >= 100 AND cte.nxt2 >= 100)
+    OR (cte.people >= 100 AND cte.nxt >= 100 AND cte.pre >= 100)
+    OR (cte.people >= 100 AND cte.pre >= 100 AND cte.pre2 >= 100);
