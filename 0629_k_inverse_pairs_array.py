@@ -16,6 +16,19 @@ class Solution:
         return ans
 
 
+class Solution:
+    def kInversePairs(self, n: int, k: int) -> int:
+        dp, MOD = [[0 for _ in range(k+1)] for _ in range(n+1)], 10**9+7
+        for i in range(1, n+1):
+            for j in range(k+1):
+                if not j:
+                    dp[i][j] = 1
+                else:
+                    for p in range(min(i-1, j)+1):
+                        dp[i][j] = (dp[i][j] + dp[i-1][j-p]) % MOD
+        return dp[n][k]
+
+
 # https://leetcode.com/problems/k-inverse-pairs-array/solutions/104824/python-concise-solution/?orderBy=most_votes
 # f(0, k) = 0
 # f(n, 0) = 1
@@ -39,8 +52,8 @@ class Solution:
 # test = Solution()
 # test.kInversePairs(3, 0)  # 1
 
-# test = Solution()
-# test.kInversePairs(3, 1)  # 2
+test = Solution()
+test.kInversePairs(3, 1)  # 2
 
 # test = Solution()
 # test.kInversePairs(2, 1)  # 1
