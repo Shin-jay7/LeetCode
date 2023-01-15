@@ -1,18 +1,22 @@
 from __future__ import annotations
 from typing import List
+from itertools import accumulate
+from operator import sub
 
 
 class Solution:
     def findMaxAverage(self, nums: List[int], k: int) -> float:
-        size, _max = len(nums), float('-inf')
-        if not nums:
-            return 0
-        if k >= size:
-            return sum(nums) / size
-        for i in range(size-k+1):
-            _max = max(_max, sum(nums[i:i+k]) / k)
-        print(_max)
-        return _max
+        ans = prefs = sum(nums[:k])
+        for i in range(len(nums)-k):
+            prefs += (nums[i+k] - nums[i])
+            ans = max(ans, prefs)
+        return ans / k
+
+
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        sums = [0] + list(accumulate(nums))
+        return max(map(sub, sums[k:], sums)) / k
 
 
 test = Solution()
