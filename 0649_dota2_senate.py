@@ -9,7 +9,7 @@ class Solution:
         while r_idxes and d_idxes:
             r_idx, d_idx = r_idxes.popleft(), d_idxes.popleft()
             if r_idx < d_idx:
-                r_idxes += r_idx + len(senate)
+                r_idxes += r_idx + len(senate),
             else:
-                d_idxes += d_idx + len(senate)
-        return r_idxes and "Radinat" or "Dire"
+                d_idxes += d_idx + len(senate),
+        return r_idxes and "Radiant" or "Dire"
