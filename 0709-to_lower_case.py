@@ -3,7 +3,7 @@ from __future__ import annotations
 
 class Solution:
     def toLowerCase(self, s: str) -> str:
-        # print(s.lower())
+        print(lower.__file__)
         return s.lower()
     
 
